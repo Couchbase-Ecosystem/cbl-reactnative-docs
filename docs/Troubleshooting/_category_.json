@@ -1,0 +1,8 @@
+{
+  "label": "Troubleshooting",
+  "position": 16,
+  "link": {
+    "type": "generated-index",
+    "description": "Learn about how to troubleshoot issues between React Native - Native Module and Couchbase Lite."
+  }
+}
