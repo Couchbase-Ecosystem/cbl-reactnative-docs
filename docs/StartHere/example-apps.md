@@ -9,7 +9,7 @@ Several example apps are available for developers to review.  These apps are des
 
 ## React Native Module Example App
 
-The cbl-reactnative module has an example app in the repositories [expo-example](https://github.com/Couchbase-Ecosystem/cbl-reactnative/tree/main/expo-example) folder. This example app is designed to show off all the various APIs and is used to test the Native Module during the develompent process.   
+The cbl-reactnative module has an example app in the repositories [expo-example](https://github.com/Couchbase-Ecosystem/cbl-reactnative/tree/main/expo-example) folder. This example app is designed to show off all the various APIs and is used to test the Native Module during the development process.   
 
 ## Expo Travel Sample App
 

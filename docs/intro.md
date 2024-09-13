@@ -20,7 +20,7 @@ More information on React Native - Native Modules can be found here: [React Nati
 This plugin only works with iOS and Android platforms.  Web, Windows, and MacOS support is not available.
 :::
 
-The version of this plugin is based on supporting Couchbase Lite Enterprise for iOS and Android.  This plugin is not compatible with Couchbase Lite Community Edition.  A [license](https://www.couchbase.com/pricing/) is required to use Couchbase Lite Enterprise edition.  
+The version of this Native Module is based on supporting Couchbase Lite Enterprise for iOS and Android.  This Native Module is not compatible with Couchbase Lite Community Edition.  A [license](https://www.couchbase.com/pricing/) is required to use Couchbase Lite Enterprise edition.  
 
 :::note
 Couchbase Lite for React Native is a community provided solution that is actively developed and maintained by the community.  It is not an official Couchbase product.
