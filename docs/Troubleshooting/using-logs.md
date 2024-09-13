@@ -41,5 +41,5 @@ Changes to console logging are independent of file logging, so you can make chan
 #### Example 1. Change Console Logging Settings
 
 ```typescript
-database.setLogLevel(LogDomain.ALL, Loglevel.VERBOSE);
+Database.setLogLevel(LogDomain.ALL, Loglevel.VERBOSE);
 ```

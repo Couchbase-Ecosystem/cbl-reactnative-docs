@@ -17,7 +17,7 @@ Couchbase Lite Enterprise Edition for React Native is a Native Module implementa
 More information on React Native - Native Modules can be found here: [React Native Docs](https://reactnative.dev/docs/native-modules-intro)
 
 :::note
-This plugin only works with iOS and Android platforms.  Web support is not available.
+This plugin only works with iOS and Android platforms.  Web, Windows, and MacOS support is not available.
 :::
 
 The version of this plugin is based on supporting Couchbase Lite Enterprise for iOS and Android.  This plugin is not compatible with Couchbase Lite Community Edition.  A [license](https://www.couchbase.com/pricing/) is required to use Couchbase Lite Enterprise edition.  
@@ -59,4 +59,4 @@ Some of the features supported by other platform implementations of Couchbase Li
 * Peer-to-Peer Sync
 	- There is no "platform" specific code built into the plugin to allow you to find other peers.
 
- 
+* Current beta release does not support Event Listeners for changes (Change Notifications). 

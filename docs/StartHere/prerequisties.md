@@ -16,10 +16,10 @@ A developer using this plugin should have a basic understanding of the following
 - [Couchbase Lite](https://docs.couchbase.com/couchbase-lite/current/index.html)
 
 ## Expo Note
-React Native's recommmendation is to use Expo for development per this [blog post](https://reactnative.dev/blog/2024/06/25/use-a-framework-to-build-react-native-apps).   The example app that comes with the cbl-reactnative repo is an Expo based app, thus this Native Module can work in Expo apps.  Note using Expo Go is not supported due to Expo Go not supporting loading 3rd party Native Modules.  You will need to be familiar with the [Expo Dev Client](https://docs.expo.dev/guides/local-app-development/#local-builds-with-expo-dev-client) process to use this Native Module in an Expo app. 
+React Native's recommmendation is to use [Expo](https://reactnative.dev/blog/2024/06/25/use-a-framework-to-build-react-native-apps) for development . The example app that comes with the cbl-reactnative repo is an Expo based app, thus this Native Module can work in Expo apps.  Note using Expo Go is not supported due to Expo Go not supporting loading 3rd party Native Modules.  You will need to be familiar with the [Expo Dev Client](https://docs.expo.dev/guides/local-app-development/#local-builds-with-expo-dev-client) process to use this Native Module in an Expo app. 
 
 ## Supported Platforms
-- The React Native - Native Module is supported on iOS and Android platforms.  MacOS and Windows support is not available at this time.
+- The React Native - Native Module is supported on iOS and Android platforms.  MacOS, Windows, and Web support is not available at this time.
 
 ## React Native Version
 - The plugin is built using React Native 0.74.3. Support for older versions of React Native is not guaranteed and apps should be based on 0.74.3 or higher. 
