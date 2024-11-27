@@ -91,6 +91,20 @@ You are advised to incorporate the closing of all open databases into your appli
 await myDatabase.close();
 ```
 
+### Deleting a Database 
+
+The delete method is used to delete a database.
+
+```typescript
+ await database.deleteDatabase();
+```
+
+Alternatively, you can delete a database by calling the delete method on the Database class.
+
+```typescript
+Database.deleteDatabase('myDatabaseName', 'path/to/database');
+```
+
 ## Database Encryption
 
 Couchbase Lite includes the ability to encrypt Couchbase Lite databases. This allows mobile applications to secure data at rest, when it is being stored on the device. The algorithm used to encrypt the database is 256-bit AES.
@@ -127,15 +141,23 @@ From time to time it may be necessary to perform certain maintenance activities 
 
 Couchbase Lite's API provides the Database.performMaintenance method. The available maintenance operations, including compact are as shown in the enum MaintenanceType to accomplish this.
 
-This is a resource intensive operation and is not performed automatically. It should be run on-demand using the API. For questions or issues, please visit the [Couchbase Forums](https://www.couchbase.com/forums/) where you can ask for help and discuss with the community.
+```typescript
+const dbName = 'my_secure_db';
+const config = new DatabaseConfiguration();
+const db = new Database(dbName, config);
+await db.open();
+await db.performMaintenance(MaintenanceType.compact);
+```
 
+This is a resource intensive operation and is not performed automatically. It should be run on-demand using the API. A full listing of the available maintenance operations is shown below: 
 
-## Command Line Tool
+- **MaintenanceType.compact**: Compact the database file and delete unused attachments.
+- **MaintenanceType.reindex**: (Volatile API) Rebuild the entire database’s indexes.
+- **MaintenanceType.integrityCheck**: (Volatile API) Check for the database’s corruption. If found, an error will be returned.
+- **MaintenanceType.optimize**: Quickly updates database statistics that may help optimize queries that have been run by this Database since it was opened
+- **MaintenanceType.fullOptimize**: Fully scans all indexes to gather database statistics that help optimize queries.
 
-cblite is a command-line tool for inspecting and querying Couchbase Lite databases.
-
-You can download and build it from the couchbaselabs [GitHub repository](https://github.com/couchbaselabs/couchbase-mobile-tools/blob/master/README.cblite.md). Note that the cblite tool is not supported by the [Couchbase Support Policy](https://www.couchbase.com/support-policy/).
-
+For questions or issues, please visit the [Couchbase Forums](https://www.couchbase.com/forums/) where you can ask for help and discuss with the community.
 
 ## Couchbase Lite for VSCode
 
@@ -144,6 +166,13 @@ Couchbase Lite for VSCode is a Visual Studio Code extension that provides a user
 ## Couchbase Lite for JetBrains
 
 Couchbase Lite for JetBrains is a JetBrains IDE plugin that provides a user interface for inspecting and querying Couchbase Lite databases. You can find more information about this plugin from its [GitHub repository](https://github.com/couchbaselabs/couchbase_jetbrains_plugin).
+
+## Command Line Tool
+
+cblite is a command-line tool for inspecting and querying Couchbase Lite databases.
+
+You can download and build it from the couchbaselabs [GitHub repository](https://github.com/couchbaselabs/couchbase-mobile-tools/blob/master/README.cblite.md). Note that the cblite tool is not supported by the [Couchbase Support Policy](https://www.couchbase.com/support-policy/).
+
 
 ## Troubleshooting
 

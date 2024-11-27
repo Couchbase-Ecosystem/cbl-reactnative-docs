@@ -63,13 +63,17 @@ await collection.save(document);
 
 ```typescript
 // code for setting blob
+const mutDoc = new MutableDocument('doc1');
 const encoder = new TextEncoder();
 const blobEncoded = new Blob("text/plain", encoder.encode("Hello World"));
-doc.setBlob('textBlob', blobEncoded);
+mutDoc.setBlob('textBlob', blobEncoded);
+await collection.save(mutDoc);
 
 // code for getting blob's content
+const doc = await collection.document('doc1');
 const textDecoder = new TextDecoder();
-const blobArrayBuffer = await doc.getBlobContent('textBlob', collection);
+const blob = doc.getBlob('textBlob');
+const blobArrayBuffer =  blob.getBytes();
 const textBlobResults = textDecoder.decode(blobArrayBuffer);
 ```
 

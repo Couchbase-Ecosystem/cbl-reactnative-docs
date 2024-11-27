@@ -3,9 +3,9 @@ id: remote-sync-gateway
 sidebar_position: 2
 ---
 
-# Remote Sync Gateway 
+# Remote Sync 
 
-> Description - _Couchbase Lite for React Native — Synchronizing data changes between local and remote databases using Sync Gateway_
+> Description - _Couchbase Lite for Ionic — Synchronizing data changes between local and remote databases using Sync Gateway or Capella App Services_
 
 :::note
 All code examples are indicative only. They demonstrate the basic concepts and approaches to using a feature. Use them as inspiration and adapt these examples to best practice when developing applications for your platform.
@@ -13,15 +13,22 @@ All code examples are indicative only. They demonstrate the basic concepts and a
 
 ## Introduction
 
-Couchbase Lite for React Native provides API support for secure, bi-directional, synchronization of data changes between mobile applications and a central server database. It does so by using a *replicator* to interact with Sync Gateway.
+Couchbase Lite for React Native provides API support for secure, bi-directional, synchronization of data changes between mobile applications and a central server database. It does so by using a *replicator* to interact with Sync Gateway or Capella App Services.
 
-The *replicator* is designed to manage replication of documents and-or document changes between a source and a target database. For example, between a local Couchbase Lite database and remote Sync Gateway database, which is ultimately mapped to a bucket in a Couchbase Server instance in the cloud or on a server.
+The *replicator* is designed to manage replication of documents and-or document changes between a source and a target database. For example, between a local Couchbase Lite database and Capella App Services endpoint, which is ultimately mapped to a bucket in a Couchbase Capella Couchbase cluster instance in the cloud.
 
-This page shows sample code and configuration examples covering the implementation of a replication using Sync Gateway.
+This page shows sample code and configuration examples covering the implementation of a replication using Sync Gateway or Capella App Services.
 
-Your application runs a replicator (also referred to here as a client), which will initiate connection with a Sync Gateway (also referred to here as a server) and participate in the replication of database changes to bring both local and remote databases into sync.
+Your application runs a replicator (also referred to here as a client), which will initiate connection with a Sync Gateway or Capella App Services endpoint (also referred to here as a server) and participate in the replication of database changes to bring both local and remote databases into sync.
 
 Subsequent sections provide additional details and examples for the main configuration options.
+
+## Couchbase Capella Free Tier
+
+Couchbase Capella offers a free tier that allows you to get started with Couchbase Capella and Couchbase Capella App Services. The free tier includes a single node Capella cluster. 
+
+To get started with the free tier, see the documentation on [Couchbase Capella Free Tier](https://docs.couchbase.com/cloud/get-started/create-account.html).  For new developers to the platform, Couchbase Capella free tier is the fastest way to get started trying out sync within your mobile application. 
+
 
 ## Replication Concepts
 
@@ -71,9 +78,9 @@ During replication:
 
 ### Default Collection
 
-When upgrading Couchbase Lite to 3.1, the existing documents in the database will be automatically migrated to the default collection.
+When upgrading Couchbase Lite to >= 3.1, the existing documents in the database will be automatically migrated to the default collection.
 
-For backward compatibility with the code prior to 3.1, when you set up the replicator with the database, the default collection will be set up to sync with the default collection on Sync Gateway.
+For backward compatibility with the code prior to >= 3.1, when you set up the replicator with the database, the default collection will be set up to sync with the default collection on the server.
 
 #### Sync Couchbase Lite database with the default collection on Sync Gateway
 
@@ -116,8 +123,8 @@ The user-defined collections specified in the Couchbase Lite replicator setup mu
 You should configure and initialize a replicator for each Couchbase Lite database instance you want to sync. [Example 1](#example-1-replication-configuration-and-initialization) shows the configuration and initialization process.
 
 :::note
-You need Couchbase Lite 3.1+ and Sync Gateway 3.1+ to use `custom` Scopes and Collections.
-If you’re using Capella App Services or Sync Gateway releases that are older than version 3.1, you won’t be able to access `custom` Scopes and Collections. To use Couchbase Lite 3.1+ with these older versions, you can use the `default` Collection as a backup option.
+You need Couchbase Lite 3.1+ and Sync Gateway 3.1+ or Capella App Services to use `custom` Scopes and Collections.
+If you’re using a Sync Gateway release that is older than version 3.1, you won’t be able to access `custom` Scopes and Collections. To use Couchbase Lite 3.1+ with these older versions, you can use the `default` Collection as a backup option.
 :::
 
 #### Example 1. Replication configuration and initialization
