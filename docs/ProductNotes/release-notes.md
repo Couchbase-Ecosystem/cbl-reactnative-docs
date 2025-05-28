@@ -3,7 +3,12 @@ id: release-notes
 sidebar_position: 1
 ---
 
-# Release Notes 
+# Release Notes
+**0.5.0**
+- Implemented Collection Document Change
+- Implemented Query Change Listener (Live Query)
+- Implemented Replicator Status Change and Replicator Document Change (iOS)
+- Fixed issue related to creation of two database instances
 
 **0.2.3**
 - Couchbase Lite 3.2.1 support
