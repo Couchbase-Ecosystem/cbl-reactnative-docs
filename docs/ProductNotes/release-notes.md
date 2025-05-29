@@ -4,6 +4,12 @@ sidebar_position: 1
 ---
 
 # Release Notes
+**0.6.0**
+- Implemented [Collection Change Listeners](https://github.com/Couchbase-Ecosystem/cbl-reactnative/pull/54) on Android
+- Implemented [Query Change Listeners](https://github.com/Couchbase-Ecosystem/cbl-reactnative/pull/55) on Android
+- Fixed data adapter issues and improved testing
+- Fixed [issue](https://github.com/Couchbase-Ecosystem/cbl-reactnative/issues/38) related to collection `getDocument` always pulling blob content
+
 **0.5.0**
 - Implemented Collection Document Change
 - Implemented Query Change Listener (Live Query)
