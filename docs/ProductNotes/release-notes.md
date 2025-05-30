@@ -4,7 +4,7 @@ sidebar_position: 1
 ---
 
 # Release Notes
-**0.6.0**
+**0.6.1**
 - Implemented [Collection Change Listeners](https://github.com/Couchbase-Ecosystem/cbl-reactnative/pull/54) on Android
 - Implemented [Query Change Listeners](https://github.com/Couchbase-Ecosystem/cbl-reactnative/pull/55) on Android
 - Fixed data adapter issues and improved testing
