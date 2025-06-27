@@ -414,6 +414,85 @@ config.addCollection(collection);
 config.setHeaders({ "CustomHeaderName": "Value" });
 ```
 
+### Replication filters
+
+Replication Filters allow you to have quick control over the documents stored as the result of a push and/or pull replication.
+
+##### Push Filter
+
+The push filter allows an app to push a subset of a database to the server. This can be very useful. For instance, high-priority documents could be pushed first, or documents in a "draft" state could be skipped.
+
+```typescript
+const targetUrl = new URLEndpoint('"ws://localhost:4984/mydatabase"');
+
+const config = new ReplicatorConfiguration(targetUrl);
+const colConfig = new CollectionConfig(null, null);
+
+colConfig.pushFilter((documents, flags) => {
+  // (1)
+  "show source"; // directive needed to persist function body as string
+
+  if (document?.["type"] === "draft") {
+    return false;
+  }
+  return true;
+});
+
+config.addCollection(collection, colConfig);
+
+const replicator = await Replicator.create(config);
+await replicator.start();
+```
+
+1. The callback should follow the semantics of a [pure function](https://en.wikipedia.org/wiki/Pure_function). Otherwise, long running functions would slow down the replicator considerably.
+
+##### Pull Filter
+
+The pull filter gives an app the ability to validate documents being pulled, and skip ones that fail. This is an important security mechanism in a peer-to-peer topology with peers that are not fully trusted.
+
+:::note
+Pull replication filters are not a substitute for [channels](https://docs.couchbase.com/sync-gateway/current/channels.html). Sync Gateway channels are designed to be scalable (documents are filtered on the server) whereas a pull replication filter is applied to a document once it has been downloaded.
+:::
+
+```typescript
+const targetUrl = new URLEndpoint('"ws://localhost:4984/mydatabase"');
+
+const config = new ReplicatorConfiguration(targetUrl);
+const colConfig = new CollectionConfig(null, null);
+
+colConfig.pullFilter((documents, flags) => {
+  // (1)
+  "show source"; // directive needed to persist function body as string
+
+  if (flags.includes(ReplicatedDocumentFlag.DELETED)) {
+    return false;
+  }
+  return true;
+});
+
+config.addCollection(collection, colConfig);
+
+const replicator = await Replicator.create(config);
+await replicator.start();
+```
+
+1. The callback should follow the semantics of a [pure function](https://en.wikipedia.org/wiki/Pure_function). Otherwise, long running functions would slow down the replicator considerably.
+
+:::caution
+For now, pull filters can handle up to 100 documents per replication. If you exceed this number, the replicator may freeze. This will be fixed in the next version.
+:::
+
+:::info Losing access to a document via the Sync Function
+
+Losing access to a document (via the Sync Function) also triggers the pull replication filter.
+
+Filtering out such an event would retain the document locally.
+
+As a result, there would be a local copy of the document disjointed from the one that resides on Couchbase Server.
+
+Further updates to the document stored on Couchbase Server would not be received in pull replications and further local edits could be pushed but the updated versions will not be visible.
+:::
+
 ### Channels
 
 By default, Couchbase Lite gets all the channels to which the configured user account has access.
