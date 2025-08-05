@@ -4,6 +4,10 @@ sidebar_position: 1
 ---
 
 # Release Notes
+**1.0.0**
+- Feature: Push and pull filters for data replication, see [documentation](https://cbl-reactnative.dev/DataSync/remote-sync-gateway#replication-filters).
+- Fix: [Query params fix for live query](https://github.com/Couchbase-Ecosystem/cbl-reactnative/pull/62).
+
 **0.6.1**
 - Implemented [Collection Change Listeners](https://github.com/Couchbase-Ecosystem/cbl-reactnative/pull/54) on Android
 - Implemented [Query Change Listeners](https://github.com/Couchbase-Ecosystem/cbl-reactnative/pull/55) on Android
