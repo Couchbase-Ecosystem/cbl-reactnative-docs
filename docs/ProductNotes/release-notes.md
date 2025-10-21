@@ -4,6 +4,11 @@ sidebar_position: 1
 ---
 
 # Release Notes
+
+**0.6.3**
+- Array handling and improve blob data validation in DataAdapter [null-pointer issue](https://github.com/Couchbase-Ecosystem/cbl-reactnative/pull/73)
+- Fix a crash caused by improper handling of encryption key
+
 **0.6.1**
 - Implemented [Collection Change Listeners](https://github.com/Couchbase-Ecosystem/cbl-reactnative/pull/54) on Android
 - Implemented [Query Change Listeners](https://github.com/Couchbase-Ecosystem/cbl-reactnative/pull/55) on Android
