@@ -336,19 +336,35 @@ await collection.save(document);
 
 ## Document change events
 
-It is possible to register for document changes. The following example registers for changes to the document with ID user.john and prints the verified_account property when a change is detected.
+Couchbase Lite allows you to register listeners to be notified when documents change. Version 1.0 introduces the `ListenerToken` API for better listener lifecycle management.
+
+#### Example 7. Document Change Listener
 
 ```typescript
-const token = collection.addDocumentChangeListener('user.john', async (change) => {
-  const document = await collection.document(change.documentID);
-  if (document !== null) {
-    console.log(`Status: ${document.getString('verified_account')}`);
-  }
-});
+import { ListenerToken } from 'cbl-reactnative';
 
-// Remove the change listener when it is no longer needed
-await collection.removeDocumentChangeListener(token);
+const token: ListenerToken = await collection.addDocumentChangeListener(
+  'user.john', 
+  async (change) => {
+    // Note: Property is 'documentId' (lowercase Id), not 'documentID'
+    const document = await collection.document(change.documentId);
+    if (document !== null) {
+      console.log(`Status: ${document.getString('verified_account')}`);
+    }
+  }
+);
+
+// Remove listener when no longer needed
+await token.remove();
 ```
+
+:::tip New in Version 1.0
+Change listeners now return a `ListenerToken` object. Use `token.remove()` to remove the listener.
+
+The old `collection.removeDocumentChangeListener(token)` method is deprecated but still works.
+:::
+
+For complete information on all change listener types including collection-wide listeners, query listeners, and replicator listeners, see [Change Listeners](change-listeners.md).
 
 ## Document Expiration
 

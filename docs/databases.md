@@ -178,15 +178,21 @@ You can download and build it from the couchbaselabs [GitHub repository](https:/
 
 You should use console logs as your first source of diagnostic information. If the information in the default logging level is insufficient you can focus it on database errors and generate more verbose messages.
 
-
 ```typescript
+import { LogSinks, LogLevel, LogDomain } from 'cbl-reactnative';
+
 try {
-  await db.setLogLevel(LogDomain.DATABASE, LogLevel.VERBOSE);
-  console.log('Database log level set to VERBOSE.');
+  await LogSinks.setConsole({
+    level: LogLevel.VERBOSE,
+    domains: [LogDomain.DATABASE]
+  });
+  console.log('Database logging enabled.');
 } catch (error) {
   console.error('Setting log level failed:', error);
 }
 ```
+
+For more on using logs for troubleshooting, see [Using Logs](Troubleshooting/using-logs.md).
 
 
 

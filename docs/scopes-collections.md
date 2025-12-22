@@ -103,3 +103,25 @@ const scopes = await database.scopes();
 // Get Collections of a particular Scope
 const collections = await database.collections(scopeName);
 ```
+
+## Get Collection Full Name
+
+The `fullName()` method returns the fully qualified name of a collection in the format "scope.collection".
+
+**Example 5. Get Collection Full Name**
+
+```typescript
+// User-defined collection
+const collection = await database.createCollection('users', 'production');
+const fullName = await collection.fullName();
+console.log(fullName);  
+// Output: "production.users"
+
+// Default collection
+const defaultCol = await database.defaultCollection();
+const defaultName = await defaultCol.fullName();
+console.log(defaultName);
+// Output: "_default._default"
+```
+
+The full name is useful for logging, debugging, and displaying collection information in your application.

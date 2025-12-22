@@ -57,6 +57,4 @@ Some of the features supported by other platform implementations of Couchbase Li
 	- This is still in beta for the native platforms and is not yet supported in the plugin.
 
 * Peer-to-Peer Sync
-	- There is no "platform" specific code built into the plugin to allow you to find other peers.
-
-* Current beta release does not support Event Listeners for changes (Change Notifications). 
+	- There is no "platform" specific code built into the plugin to allow you to find other peers. 

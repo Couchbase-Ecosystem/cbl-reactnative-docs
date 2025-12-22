@@ -23,25 +23,46 @@ Each time you start watching a live query, the query is executed and an initial 
 #### Example 1. Starting a Live Query - Change Listener
 
 ```typescript
-// Register a change listener and await the Promise returned from the registration call.
-const token = await query.addChangeListener((change) => {  
-  if (change.error !== null && change.error !== undefined) {  
-    // deal with error...  
-  } else {  
-    const results = change.results;  
-    //loop through ResultSet  
-    for (const doc of results) {  
-      //do something with doc                   
-    }  
+import { ListenerToken } from 'cbl-reactnative';
+
+// Register a change listener
+const token: ListenerToken = await query.addChangeListener((change) => {  
+  if (change.error) {  
+    console.error('Query error:', change.error);
+    return;
+  }
+  
+  const results = change.results;  
+  // results is an array of result objects
+  for (const doc of results) {  
+    console.log('Result:', doc);                
   }  
 }); 
 ```
 
-To stop receiving notifications, call `Query.removeChangeListener` with the token that was returned from the registration call. Regardless of the whether the API is synchronous or asynchronous, listeners will stop receiving notifications immediately:
+:::note Version 1.0
+Change listeners now return a `ListenerToken` object with a `remove()` method for cleanup.
+:::
 
 #### Example 2. Stopping a Live Query - Change Listener
 
 ```typescript
-const token = await query.addChangeListener((change) => { ... });
-await query.removeChangeListener(token);
+// Remove listener using new API
+await token.remove();
 ```
+
+:::caution Deprecated
+The old `query.removeChangeListener(token)` method is deprecated but still works:
+
+**Old way (deprecated):**
+```typescript
+await query.removeChangeListener(token);  // Still works
+```
+
+**New way (recommended):**
+```typescript
+await token.remove();  // Use this
+```
+:::
+
+For complete information on query change listeners and all other listener types, see [Change Listeners](../change-listeners.md).
