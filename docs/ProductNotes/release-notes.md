@@ -18,7 +18,7 @@ New Features:
 - Replicator Document Change Listeners - Track individual document replication
 - New ReplicatorConfiguration API - Collections passed during initialization using CollectionConfiguration
 - Collection.fullName() method - Get fully qualified collection name (scope.collection)
-- Couchbase Lite 3.3.0 - Updated iOS and Android SDKs to latest stable version
+- Couchbase Lite 3.3.0 - Updated iOS and Android SDKs to Couchbase Lite 3.3.0
 
 Breaking Changes:
 - TypeScript: ListenerToken type changed from string to ListenerToken object (affects explicitly typed code only)

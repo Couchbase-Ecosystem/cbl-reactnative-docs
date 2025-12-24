@@ -50,6 +50,10 @@ Couchbase Lite for React Native is a community provided solution that is activel
 * Encryption
 	- Full Database 
 
+## Upgrading from 0.6.x?
+
+See the [Migration Guide](Guides/Migration/v1.md) for detailed instructions on upgrading to version 1.0.
+
 ## Limitations
 Some of the features supported by other platform implementations of Couchbase Lite are currently not supported:
 
