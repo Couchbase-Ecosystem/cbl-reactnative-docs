@@ -52,17 +52,124 @@ await token.remove();
 ```
 
 :::caution Deprecated
-The old `query.removeChangeListener(token)` method is deprecated but still works:
+The `query.removeChangeListener(token)` method is deprecated. It remains available for backward compatibility, but new applications should use `token.remove()`. Existing applications are strongly encouraged to migrate.
 
-**Old way (deprecated):**
 ```typescript
-await query.removeChangeListener(token);  // Still works
-```
+// DEPRECATED
+await query.removeChangeListener(token);
 
-**New way (recommended):**
-```typescript
-await token.remove();  // Use this
+// RECOMMENDED
+await token.remove();
 ```
 :::
 
-For complete information on query change listeners and all other listener types, see [Change Listeners](../change-listeners.md).
+## Query Change Data Structure
+
+When a query result changes, your callback receives a `QueryChange` object:
+
+```typescript
+interface QueryChange {
+  error: string;      // Error message if query failed
+  query: Query;       // Reference to the query
+  results: ResultSet; // Array of result objects
+}
+```
+
+#### Example 3. Complete Live Query with Error Handling
+
+```typescript
+import { ListenerToken } from 'cbl-reactnative';
+
+const query = database.createQuery(
+  'SELECT META().id, name, email FROM _default.users WHERE isActive = true'
+);
+
+const token: ListenerToken = await query.addChangeListener((change) => {
+  if (change.error) {
+    console.error('Query error:', change.error);
+    return;
+  }
+
+  console.log(`Found ${change.results.length} active users`);
+  change.results.forEach(result => {
+    console.log(`User: ${result.name} - ${result.email}`);
+  });
+});
+
+// Remove when done
+await token.remove();
+```
+
+#### Example 4. React Hook Pattern for Live Queries
+
+```typescript
+import { useEffect, useState } from 'react';
+import { ListenerToken } from 'cbl-reactnative';
+
+function ActiveUsersScreen({ database }) {
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    if (!database) return;
+
+    let token;
+    
+    const setup = async () => {
+      const query = database.createQuery(
+        'SELECT META().id, name FROM _default.users WHERE isActive = true'
+      );
+      
+      token = await query.addChangeListener((change) => {
+        if (!change.error) {
+          setUsers(change.results);
+        }
+      });
+    };
+    setup();
+
+    // Cleanup on unmount
+    return () => {
+      if (token && !token.isRemoved()) {
+        token.remove();
+      }
+    };
+  }, [database]);
+
+  return (
+    // Render users list
+  );
+}
+```
+
+## Best Practices
+
+**Always Remove Listeners**
+
+In React components, use the cleanup function to prevent memory leaks:
+
+```typescript
+useEffect(() => {
+  let token;
+  
+  const setup = async () => {
+    token = await query.addChangeListener((change) => {
+      // Handle changes
+    });
+  };
+  setup();
+  
+  return () => {
+    if (token && !token.isRemoved()) {
+      token.remove();
+    }
+  };
+}, [query]);
+```
+
+**Check Before Removing**
+
+```typescript
+if (!token.isRemoved()) {
+  await token.remove();
+}
+```

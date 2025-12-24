@@ -21,12 +21,13 @@ New Features:
 - Couchbase Lite 3.3.0 - Updated iOS and Android SDKs to latest stable version
 
 Breaking Changes:
-- REMOVED: Database.setLogLevel() - Use LogSinks.setConsole() instead
-- API CHANGE: ReplicatorConfiguration - Collections now passed in constructor, not via addCollection()
+- TypeScript: ListenerToken type changed from string to ListenerToken object (affects explicitly typed code only)
 
-Deprecated (Still Functional):
+Deprecated APIs (Remain available for backward compatibility):
+- Database.setLogLevel() - Use LogSinks.setConsole() instead. Note: Old and new logging APIs cannot be used in tandem.
 - config.addCollection(collection) - Pass CollectionConfiguration array in constructor instead
 - removeChangeListener() methods - Use token.remove() instead
+- ListenerToken type changed from string to ListenerToken object (TypeScript breaking change for explicitly typed code)
 
 Bug Fixes:
 - Fixed encryption key crash when key not required
@@ -35,9 +36,12 @@ Bug Fixes:
 - Fixed custom delete issues
 
 Migration from 0.6.x:
-1. Replace Database.setLogLevel() with LogSinks.setConsole()
-2. Update ReplicatorConfiguration to use new constructor pattern
-3. Update listener cleanup to use token.remove() (optional - old way still works)
+1. Replace Database.setLogLevel() with LogSinks.setConsole() (required - APIs cannot be mixed)
+2. Update ReplicatorConfiguration to use new constructor pattern (recommended)
+3. Update listener cleanup to use token.remove() (recommended)
+4. Update TypeScript code that explicitly typed tokens as string to use ListenerToken (required for TypeScript)
+
+See [Migration Guide](../Guides/Migration/v1.md) for detailed instructions.
 
 ---
 

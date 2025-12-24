@@ -194,7 +194,7 @@ const config = new ReplicatorConfiguration(endpoint);
 config.addCollection(collection);  // Deprecated
 ```
 
-The old `addCollection()` method is deprecated but still works for backward compatibility.
+The `addCollection()` method is deprecated. It remains available for backward compatibility, but new applications should use the new constructor pattern. Existing applications are strongly encouraged to migrate.
 :::
 
 #### Example 1b. Multiple Collections
@@ -738,6 +738,54 @@ const token: ListenerToken = await replicator.addChangeListener((change) => {
 await token.remove();
 ```
 
+### Replicator Status Data Structure
+
+When replication status changes, your callback receives a `ReplicatorStatusChange` object:
+
+```typescript
+interface ReplicatorStatusChange {
+  status: ReplicatorStatus;
+}
+```
+
+**ReplicatorStatus Methods:**
+- `getActivityLevel()` - Returns 0-4 (see activity levels table below)
+- `getProgress()` - Returns ReplicatorProgress object
+- `getError()` - Returns error message string or undefined
+
+**ReplicatorProgress Methods:**
+- `getCompleted()` - Returns number of changes completed
+- `getTotal()` - Returns total number of changes
+
+#### Example 14b. Advanced Replication Status Monitoring
+
+```typescript
+import { ListenerToken, ReplicatorActivityLevel } from 'cbl-reactnative';
+
+const token: ListenerToken = await replicator.addChangeListener((change) => {
+  const status = change.status;
+  const level = status.getActivityLevel();
+  const progress = status.getProgress();
+  
+  console.log(`Activity: ${level}`);
+  console.log(`Progress: ${progress.getCompleted()}/${progress.getTotal()}`);
+  
+  if (status.getError()) {
+    console.error('Replication error:', status.getError());
+  }
+  
+  // Check specific states
+  if (level === ReplicatorActivityLevel.IDLE) {
+    console.log('Sync complete');
+  } else if (level === ReplicatorActivityLevel.BUSY) {
+    console.log('Syncing data...');
+  }
+});
+
+// Remove when done
+await token.remove();
+```
+
 ### Replication States
 
 [Table 5](#table-5-replicator-activity-levels) shows the different states, or activity levels, reported in the API; and the meaning of each.
@@ -765,6 +813,34 @@ On other platforms, Couchbase Lite doesn’t react to OS backgrounding or foregr
 ### Monitor Document Changes
 
 You can choose to register for document updates during a replication.
+
+#### When to Use Document Listeners
+
+- Track which specific documents are syncing
+- Detect replication conflicts
+- Handle document-level replication errors
+- Monitor deleted documents during sync
+
+#### Document Replication Data Structure
+
+```typescript
+interface DocumentReplicationRepresentation {
+  isPush: boolean;              // true = push, false = pull
+  documents: ReplicatedDocument[];
+}
+
+interface ReplicatedDocument {
+  id: string;                   // Document ID
+  scopeName: string;            // Scope name
+  collectionName: string;       // Collection name
+  flags: string[];              // ['DELETED', 'ACCESS_REMOVED']
+  error?: { message: string };  // Present if replication failed
+}
+```
+
+**Document Flags:**
+- `'DELETED'` - Document was deleted
+- `'ACCESS_REMOVED'` - User lost access to document
 
 For example, the code snippet in [Example 15](#example-15-register-a-document-listener) registers a listener to monitor document replication performed by the replicator referenced by the variable `replicator`. It prints the document ID of each document received and sent. Stop the listener as shown in [Example 16](#example-16-stop-document-listener).
 
@@ -802,7 +878,7 @@ await token.remove();
 ```
 
 :::caution Deprecated
-The old `replicator.removeChangeListener(token)` method is deprecated. Use `token.remove()` instead.
+The `replicator.removeChangeListener(token)` method is deprecated. It remains available for backward compatibility, but new applications should use `token.remove()`. Existing applications are strongly encouraged to migrate.
 :::
 
 ### Document Access Removal Behavior
@@ -892,14 +968,19 @@ As always, when there is a problem with replication, logging is your friend. You
 
 #### Example 21. Set logging verbosity
 
-
 ```typescript
-// Verbose / Replicator
-database.setLogLevel(LogDomain.REPLICATOR, Loglevel.VERBOSE);
+import { LogSinks, LogLevel, LogDomain } from 'cbl-reactnative';
 
-// Verbose / Network
-database.setLogLevel(LogDomain.NETWORK, Loglevel.VERBOSE);
+// Verbose / Replicator and Network
+await LogSinks.setConsole({
+  level: LogLevel.VERBOSE,
+  domains: [LogDomain.REPLICATOR, LogDomain.NETWORK]
+});
 ```
+
+:::caution
+Enable VERBOSE logging only during development or debugging. Avoid using it in production builds.
+:::
 
 For more on troubleshooting with logs, see: [Using Logs](../Troubleshooting/using-logs.md).
 

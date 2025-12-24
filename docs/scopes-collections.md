@@ -108,6 +108,8 @@ const collections = await database.collections(scopeName);
 
 The `fullName()` method returns the fully qualified name of a collection in the format "scope.collection".
 
+The full name is useful for logging, debugging, and displaying collection information in your application.
+
 **Example 5. Get Collection Full Name**
 
 ```typescript
@@ -124,4 +126,91 @@ console.log(defaultName);
 // Output: "_default._default"
 ```
 
-The full name is useful for logging, debugging, and displaying collection information in your application.
+## Collection Change Listeners
+
+Monitor all changes to any document in a collection.
+
+### When to Use
+
+- Refresh list views when data changes
+- Trigger background sync after local updates
+- Audit logging of collection activity
+- Real-time collaboration features
+
+### Data Structure
+
+When a collection changes, your callback receives a `CollectionChange` object:
+
+```typescript
+interface CollectionChange {
+  documentIDs: string[];  // Array of changed document IDs
+  collection: Collection; // Reference to the collection
+}
+```
+
+:::caution Property Names
+The property is `documentIDs` (capital IDs), not `documentIds`.
+
+There is NO direct `database` property. Access it via `change.collection.database`.
+:::
+
+#### Example 6. Basic Collection Listener
+
+```typescript
+import { Collection, ListenerToken } from 'cbl-reactnative';
+
+const collection = await database.createCollection('users');
+
+const token: ListenerToken = await collection.addChangeListener((change) => {
+  console.log('Collection changed!');
+  console.log('Changed documents:', change.documentIDs);
+  // Example output: ['user-123', 'user-456']
+  
+  console.log('Collection name:', change.collection.name);
+  // Output: users
+  
+  console.log('Database name:', change.collection.database.getName());
+  // Output: mydb
+});
+
+// Remove listener when done
+await token.remove();
+```
+
+#### Example 7. React Hook Pattern
+
+```typescript
+import { useEffect } from 'react';
+import { ListenerToken } from 'cbl-reactnative';
+
+function UserListScreen({ collection }) {
+  useEffect(() => {
+    if (!collection) return;
+
+    let token;
+    
+    const setup = async () => {
+      token = await collection.addChangeListener((change) => {
+        console.log(`${change.documentIDs.length} documents changed`);
+        refreshUserList();
+      });
+    };
+    setup();
+
+    // Cleanup on unmount
+    return () => {
+      if (token) token.remove();
+    };
+  }, [collection]);
+}
+```
+
+:::important Limitation
+Only ONE collection-wide listener is allowed per collection instance. Calling `addChangeListener` twice will throw an error.
+
+However, you can have MULTIPLE document listeners on the same collection.
+:::
+
+:::caution Deprecated
+The `collection.removeChangeListener(token)` method is deprecated. It remains available for backward compatibility, but new applications should use `token.remove()`. Existing applications are strongly encouraged to migrate.
+:::
