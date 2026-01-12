@@ -334,20 +334,103 @@ document.setDate('createdAt', new Date());
 await collection.save(document);
 ```
 
-## Document change events
+## Document Change Listeners
 
-It is possible to register for document changes. The following example registers for changes to the document with ID user.john and prints the verified_account property when a change is detected.
+Monitor changes to a specific document by ID. Couchbase Lite allows you to register listeners to be notified when documents change. Version 1.0 introduces the `ListenerToken` API for better listener lifecycle management.
+
+### When to Use
+
+- Watch a user profile for updates
+- Monitor a shopping cart
+- Track order status changes
+- Real-time document collaboration
+
+### Data Structure
 
 ```typescript
-const token = collection.addDocumentChangeListener('user.john', async (change) => {
-  const document = await collection.document(change.documentID);
-  if (document !== null) {
-    console.log(`Status: ${document.getString('verified_account')}`);
+interface DocumentChange {
+  documentId: string;     // Document ID (lowercase Id)
+  collection: Collection; // Collection reference
+  database: Database;     // Database reference (available!)
+}
+```
+
+:::note
+Unlike collection listeners, document change listeners DO have a direct `database` property.
+:::
+
+#### Example 7. Monitor Specific Document
+
+```typescript
+import { ListenerToken } from 'cbl-reactnative';
+
+const token: ListenerToken = await collection.addDocumentChangeListener(
+  'user-123',
+  async (change) => {
+    console.log(`Document ${change.documentId} changed`);
+    
+    // Fetch latest version
+    const doc = await collection.document(change.documentId);
+    if (doc) {
+      console.log('New data:', doc.getData());
+    } else {
+      console.log('Document was deleted');
+    }
   }
+);
+
+// Remove when done
+await token.remove();
+```
+
+#### Example 8. Multiple Document Listeners
+
+```typescript
+// Monitor multiple specific documents
+const userToken = await collection.addDocumentChangeListener('user-123', (change) => {
+  console.log('User changed');
 });
 
-// Remove the change listener when it is no longer needed
-await collection.removeDocumentChangeListener(token);
+const cartToken = await collection.addDocumentChangeListener('cart-abc', (change) => {
+  console.log('Cart changed');
+});
+
+// Cleanup all
+await Promise.all([userToken.remove(), cartToken.remove()]);
+```
+
+:::tip New in Version 1.0
+Change listeners now return a `ListenerToken` object. Use `token.remove()` to remove the listener.
+:::
+
+:::caution Deprecated
+The `collection.removeDocumentChangeListener(token)` method is deprecated. It remains available for backward compatibility, but new applications should use `token.remove()`. Existing applications are strongly encouraged to migrate.
+:::
+
+### Common Pitfalls
+
+:::caution Property Name
+```typescript
+change.documentId  // CORRECT (lowercase Id)
+change.documentID  // WRONG - will be undefined
+```
+
+Getting this property name wrong is a common source of errors.
+:::
+
+**Async Handling in Callbacks**
+
+```typescript
+// WRONG - promise not awaited
+const token = await collection.addDocumentChangeListener('doc-id', (change) => {
+  collection.document(change.documentId);  // Returns promise, not awaited!
+});
+
+// CORRECT - proper async handling
+const token = await collection.addDocumentChangeListener('doc-id', async (change) => {
+  const doc = await collection.document(change.documentId);
+  console.log('Document:', doc);
+});
 ```
 
 ## Document Expiration

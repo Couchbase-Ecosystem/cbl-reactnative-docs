@@ -130,37 +130,97 @@ If you’re using a Sync Gateway release that is older than version 3.1, you won
 #### Example 1. Replication configuration and initialization
 
 ```typescript
-//assumes you are running sync gateway locally, if you are 
- //running app services, replace enpoint with proper url and creditentials
- const target = new URLEndpoint('ws://localhost:4984/projects');
- const auth = new BasicAuthenticator('demo@example.com', 'P@ssw0rd12');
- const config = new ReplicatorConfiguration(target);
- config.addCollection(collectionName);
- config.setAuthenticator(auth);
+import { 
+  ReplicatorConfiguration,
+  CollectionConfiguration,
+  URLEndpoint,
+  BasicAuthenticator,
+  Replicator,
+  ListenerToken
+} from 'cbl-reactnative';
 
- const replicator = await Replicator.create(config);
+// Create endpoint and authenticator
+const endpoint = new URLEndpoint('ws://localhost:4984/projects');
+const auth = new BasicAuthenticator('demo@example.com', 'P@ssw0rd12');
 
- //listen to the replicator change events
- const token = await replicator.addChangeListener((change) => {
-	//check to see if there was an error
-   	const error = change.status.getError();
-  	if (error !== undefined) {
-		//do something with the error
-   	}
-   	//get the status of the replicator using ReplicatorActivityLevel enum
-  	if (change.status.getActivityLevel() ===  ReplicatorActivityLevel.IDLE) {
-   		//do something because the replicator is now IDLE
-   	}
- });
+// NEW API: Create collection configuration
+const collectionConfig = new CollectionConfiguration(collection);
 
- // start the replicator without making a new checkpoint
- await replicator.start(false);
+// Pass collection configurations in constructor
+const config = new ReplicatorConfiguration(
+  [collectionConfig],  // Collections passed during initialization
+  endpoint
+);
 
- //remember you must clean up the replicator when done with it by 
- //doing the following lines
+config.setAuthenticator(auth);
 
- //await replicator.removeChangeListener(token);
- //await replicator.stop();
+// Create replicator
+const replicator = await Replicator.create(config);
+
+// Listen to replicator change events
+const token: ListenerToken = await replicator.addChangeListener((change) => {
+  // Check for errors
+  const error = change.status.getError();
+  if (error) {
+    console.error('Replication error:', error);
+  }
+  
+  // Check activity level
+  if (change.status.getActivityLevel() === 3) { // IDLE
+    console.log('Replication is idle');
+  }
+});
+
+// Start replication
+await replicator.start(false);
+
+// Remember to clean up when done:
+// await token.remove();
+// await replicator.stop();
+```
+
+:::important Version 1.0 API Change
+Collections are now passed during `ReplicatorConfiguration` construction using `CollectionConfiguration` objects.
+
+**NEW API (Recommended):**
+```typescript
+const collectionConfig = new CollectionConfiguration(collection);
+const config = new ReplicatorConfiguration([collectionConfig], endpoint);
+```
+
+**OLD API (Deprecated):**
+```typescript
+const config = new ReplicatorConfiguration(endpoint);
+config.addCollection(collection);  // Deprecated
+```
+
+The `addCollection()` method is deprecated. It remains available for backward compatibility, but new applications should use the new constructor pattern. Existing applications are strongly encouraged to migrate.
+:::
+
+#### Example 1b. Multiple Collections
+
+The new API allows each collection to have its own replication settings:
+
+```typescript
+import { CollectionConfiguration } from 'cbl-reactnative';
+
+// Configure users collection
+const usersConfig = new CollectionConfiguration(usersCollection)
+  .setChannels(['public', 'users']);
+
+// Configure orders collection with different settings
+const ordersConfig = new CollectionConfiguration(ordersCollection)
+  .setChannels(['orders', 'admin'])
+  .setDocumentIDs(['order-1', 'order-2']);  // Only specific documents
+
+// Pass both configurations during initialization
+const config = new ReplicatorConfiguration(
+  [usersConfig, ordersConfig],
+  endpoint
+);
+
+config.setAuthenticator(auth);
+const replicator = await Replicator.create(config);
 ```
 
 ## Configure
@@ -662,15 +722,68 @@ The returned *ReplicationStatus* structure comprises:
 #### Example 14. Monitor replication
 
 ```typescript
-// Optionally add a change listener
-// Retain token for use in deletion
-const token = replicator.addChangeListener((change) => {
-    if (change.status.getActivityLevel() === 'STOPPED') {
-        console.log("Replication stopped");
-    } else {
-        console.log(`Replicator is currently : ${change.status.getActivityLevel()}`);
-    }
+import { ListenerToken } from 'cbl-reactnative';
+
+const token: ListenerToken = await replicator.addChangeListener((change) => {
+    const status = change.status;
+    const activityLevel = status.getActivityLevel();
+    const progress = status.getProgress();
+    
+    const levelNames = ['stopped', 'offline', 'connecting', 'idle', 'busy'];
+    console.log(`Status: ${levelNames[activityLevel]}`);
+    console.log(`Progress: ${progress.getCompleted()}/${progress.getTotal()}`);
 });
+
+// Remove listener when done
+await token.remove();
+```
+
+### Replicator Status Data Structure
+
+When replication status changes, your callback receives a `ReplicatorStatusChange` object:
+
+```typescript
+interface ReplicatorStatusChange {
+  status: ReplicatorStatus;
+}
+```
+
+**ReplicatorStatus Methods:**
+- `getActivityLevel()` - Returns 0-4 (see activity levels table below)
+- `getProgress()` - Returns ReplicatorProgress object
+- `getError()` - Returns error message string or undefined
+
+**ReplicatorProgress Methods:**
+- `getCompleted()` - Returns number of changes completed
+- `getTotal()` - Returns total number of changes
+
+#### Example 14b. Advanced Replication Status Monitoring
+
+```typescript
+import { ListenerToken, ReplicatorActivityLevel } from 'cbl-reactnative';
+
+const token: ListenerToken = await replicator.addChangeListener((change) => {
+  const status = change.status;
+  const level = status.getActivityLevel();
+  const progress = status.getProgress();
+  
+  console.log(`Activity: ${level}`);
+  console.log(`Progress: ${progress.getCompleted()}/${progress.getTotal()}`);
+  
+  if (status.getError()) {
+    console.error('Replication error:', status.getError());
+  }
+  
+  // Check specific states
+  if (level === ReplicatorActivityLevel.IDLE) {
+    console.log('Sync complete');
+  } else if (level === ReplicatorActivityLevel.BUSY) {
+    console.log('Syncing data...');
+  }
+});
+
+// Remove when done
+await token.remove();
 ```
 
 ### Replication States
@@ -701,36 +814,72 @@ On other platforms, Couchbase Lite doesn’t react to OS backgrounding or foregr
 
 You can choose to register for document updates during a replication.
 
+#### When to Use Document Listeners
+
+- Track which specific documents are syncing
+- Detect replication conflicts
+- Handle document-level replication errors
+- Monitor deleted documents during sync
+
+#### Document Replication Data Structure
+
+```typescript
+interface DocumentReplicationRepresentation {
+  isPush: boolean;              // true = push, false = pull
+  documents: ReplicatedDocument[];
+}
+
+interface ReplicatedDocument {
+  id: string;                   // Document ID
+  scopeName: string;            // Scope name
+  collectionName: string;       // Collection name
+  flags: string[];              // ['DELETED', 'ACCESS_REMOVED']
+  error?: { message: string };  // Present if replication failed
+}
+```
+
+**Document Flags:**
+- `'DELETED'` - Document was deleted
+- `'ACCESS_REMOVED'` - User lost access to document
+
 For example, the code snippet in [Example 15](#example-15-register-a-document-listener) registers a listener to monitor document replication performed by the replicator referenced by the variable `replicator`. It prints the document ID of each document received and sent. Stop the listener as shown in [Example 16](#example-16-stop-document-listener).
 
 #### Example 15. Register a document listener
 
 ```typescript
-const token = await replicator.addDocumentChangeListener((replication) => {
-    console.log(`Replication type :: ${replication.isPush ? "Push" : "Pull"}`);
+import { ListenerToken } from 'cbl-reactnative';
+
+const token: ListenerToken = await replicator.addDocumentChangeListener((replication) => {
+    const direction = replication.isPush ? "Push" : "Pull";
+    console.log(`${direction}: ${replication.documents.length} documents`);
+    
     for (const document of replication.documents) {
         if (document.error === undefined) {
-            console.log(`Doc ID :: ${document.id}`);
+            console.log(`  Doc ID: ${document.id}`);
+            
             if (document.flags.includes('DELETED')) {
-                console.log("Successfully replicated a deleted document");
+                console.log("  Successfully replicated a deleted document");
             }
         } else {
-            console.error("Error replicating document:", document.error);
+            console.error(`  Error: ${document.error.message}`);
         }
     }
 });
 
-// Start the replicator without resetting the checkpoint
+// Start the replicator
 await replicator.start(false);
 ```
 
 #### Example 16. Stop document listener
 
-This code snippet shows how to stop the document listener using the token from the previous example.
-
 ```typescript
-await this.replicator.removeChangeListener(token);
+// Remove listener using new API
+await token.remove();
 ```
+
+:::caution Deprecated
+The `replicator.removeChangeListener(token)` method is deprecated. It remains available for backward compatibility, but new applications should use `token.remove()`. Existing applications are strongly encouraged to migrate.
+:::
 
 ### Document Access Removal Behavior
 
@@ -763,10 +912,10 @@ You can find further information on database operations in [Databases](../databa
 
 ```typescript
 // Remove the change listener
-await this.replicator.removeChangeListener(token)
+await token.remove()
 
 // Stop the replicator
-await this.replicator.stop()
+await replicator.stop()
 ```
 
 Here we initiate the stopping of the replication using the `stop()` method. It will stop any active `change listener` once the replication is stopped.
@@ -819,14 +968,19 @@ As always, when there is a problem with replication, logging is your friend. You
 
 #### Example 21. Set logging verbosity
 
-
 ```typescript
-// Verbose / Replicator
-database.setLogLevel(LogDomain.REPLICATOR, Loglevel.VERBOSE);
+import { LogSinks, LogLevel, LogDomain } from 'cbl-reactnative';
 
-// Verbose / Network
-database.setLogLevel(LogDomain.NETWORK, Loglevel.VERBOSE);
+// Verbose / Replicator and Network
+await LogSinks.setConsole({
+  level: LogLevel.VERBOSE,
+  domains: [LogDomain.REPLICATOR, LogDomain.NETWORK]
+});
 ```
+
+:::caution
+Enable VERBOSE logging only during development or debugging. Avoid using it in production builds.
+:::
 
 For more on troubleshooting with logs, see: [Using Logs](../Troubleshooting/using-logs.md).
 

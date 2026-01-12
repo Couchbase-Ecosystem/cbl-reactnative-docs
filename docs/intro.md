@@ -50,6 +50,10 @@ Couchbase Lite for React Native is a community provided solution that is activel
 * Encryption
 	- Full Database 
 
+## Upgrading from 0.6.x?
+
+See the [Migration Guide](Guides/Migration/v1.md) for detailed instructions on upgrading to version 1.0.
+
 ## Limitations
 Some of the features supported by other platform implementations of Couchbase Lite are currently not supported:
 
@@ -57,6 +61,4 @@ Some of the features supported by other platform implementations of Couchbase Li
 	- This is still in beta for the native platforms and is not yet supported in the plugin.
 
 * Peer-to-Peer Sync
-	- There is no "platform" specific code built into the plugin to allow you to find other peers.
-
-* Current beta release does not support Event Listeners for changes (Change Notifications). 
+	- There is no "platform" specific code built into the plugin to allow you to find other peers. 

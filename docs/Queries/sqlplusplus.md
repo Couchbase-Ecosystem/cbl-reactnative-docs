@@ -6,7 +6,7 @@ sidebar_position: 1
 # SQL++ for Mobile 
 
 > Description - _How to use SQL++ Query Strings to build effective queries with Couchbase Lite for React Native_      
-> Related Content - [Live Queries](../live-queries.md) | [Indexes](../indexes.md)
+> Related Content - [Live Queries](live-queries.md) | [Indexes](../indexes.md)
 
 :::info
 N1QL is Couchbase's implementation of the developing SQL++ standard. As such the terms N1QL and SQL++ are used interchangeably in all Couchbase documentation unless explicitly stated otherwise.

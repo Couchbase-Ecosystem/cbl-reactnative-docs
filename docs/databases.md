@@ -176,17 +176,69 @@ You can download and build it from the couchbaselabs [GitHub repository](https:/
 
 ## Troubleshooting
 
-You should use console logs as your first source of diagnostic information. If the information in the default logging level is insufficient you can focus it on database errors and generate more verbose messages.
-
+You should use console logs as your first source of diagnostic information. If the default logging level is insufficient, you can enable verbose logging scoped specifically to database operations.
 
 ```typescript
+import { LogSinks, LogLevel, LogDomain } from 'cbl-reactnative';
+
 try {
-  await db.setLogLevel(LogDomain.DATABASE, LogLevel.VERBOSE);
-  console.log('Database log level set to VERBOSE.');
+  await LogSinks.setConsole({
+    level: LogLevel.VERBOSE,
+    domains: [LogDomain.DATABASE]
+  });
+  console.log('Database logging enabled.');
 } catch (error) {
   console.error('Setting log level failed:', error);
 }
 ```
+
+:::caution
+Enable VERBOSE logging only during development or debugging. Avoid using it in production builds.
+:::
+
+For more on using logs for troubleshooting, see [Using Logs](Troubleshooting/using-logs.md).
+
+## Listener Token API
+
+Version 1.0 introduces the `ListenerToken` class for improved listener management across all change listener types.
+
+All `addChangeListener` methods return a `ListenerToken` object with these methods:
+
+**remove()** - Removes the listener (recommended)
+
+```typescript
+const token = await collection.addChangeListener(...);
+await token.remove();
+```
+
+**getUuidToken()** - Gets the internal UUID string (for debugging)
+
+```typescript
+const uuid = token.getUuidToken();
+console.log('Token:', uuid); // "listener-abc-123-def-456"
+```
+
+**isRemoved()** - Checks if listener was already removed
+
+```typescript
+if (!token.isRemoved()) {
+  await token.remove();
+}
+```
+
+:::caution Deprecated Methods
+The `removeChangeListener()` methods on Collection, Query, and Replicator are deprecated. This method is deprecated. It remains available for backward compatibility, but new applications should use `token.remove()`. Existing applications are strongly encouraged to migrate.
+
+```typescript
+// DEPRECATED
+await collection.removeChangeListener(token);
+await query.removeChangeListener(token);
+await replicator.removeChangeListener(token);
+
+// RECOMMENDED
+await token.remove();
+```
+:::
 
 
 
