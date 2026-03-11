@@ -8,11 +8,11 @@ description:
   Couchbase Lite is an embedded, document-style NoSQL database that is syncable and makes it easy to build offline-enabled applications.
 ---
 
-# Couchbase Lite Enterprise Edition for React Native 
+# Couchbase Lite for React Native 
 
 Couchbase Lite is an embedded, document-style NoSQL database that is syncable and makes it easy to build offline-enabled applications.
 
-Couchbase Lite Enterprise Edition for React Native is a Native Module implementation of Couchbase Lite for React Native using Typescript. It has feature parity with Couchbase Lite implementations for other platforms, with a few exceptions.
+Couchbase Lite for React Native is a Native Module implementation of Couchbase Lite for React Native using Typescript. It has feature parity with Couchbase Lite implementations for other platforms, with a few exceptions.
 
 More information on React Native - Native Modules can be found here: [React Native Docs](https://reactnative.dev/docs/native-modules-intro)
 
