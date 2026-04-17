@@ -25,11 +25,23 @@ const config = {
   onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
 
+  // OneTrust Cookies Consent Notice for couchbase.com
   headTags: [
     {
       tagName: 'script',
-      attributes: {},
-      innerHTML: `!function(){var e,t,n;e="${process.env.REO_CLIENT_ID}",t=function(){Reo.init({clientID:"${process.env.REO_CLIENT_ID}"})},(n=document.createElement("script")).src="https://static.reo.dev/"+e+"/reo.js",n.async=!0,n.onload=t,document.head.appendChild(n)}();`,
+      attributes: {
+        src: 'https://cdn.cookielaw.org/scripttemplates/otSDKStub.js',
+        type: 'text/javascript',
+        charset: 'UTF-8',
+        'data-domain-script': '748511ff-10bf-44bf-88b8-36382e5b5fd9',
+      },
+    },
+    {
+      tagName: 'script',
+      attributes: {
+        type: 'text/javascript',
+      },
+      innerHTML: 'function OptanonWrapper() {}',
     },
   ],
 
