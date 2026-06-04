@@ -14,8 +14,6 @@ Couchbase Lite is an embedded, document-style NoSQL database that is syncable an
 
 Couchbase Lite for React Native is a Native Module implementation of Couchbase Lite for React Native using Typescript. It has feature parity with Couchbase Lite implementations for other platforms, with a few exceptions.
 
-Version 1.1 adds official React Native New Architecture support through TurboModules and improves file logging so React Native wrapper diagnostics can be captured alongside native Couchbase Lite logs.
-
 More information on React Native - Native Modules can be found here: [React Native Docs](https://reactnative.dev/docs/native-modules-intro)
 
 :::note
@@ -47,17 +45,10 @@ The version of this Native Module is based on supporting Couchbase Lite Enterpri
 	- Replication
 * Encryption
 	- Full Database 
-* React Native New Architecture
-	- TurboModule support for iOS and Android
-* Logging
-	- Console, file, and custom log sinks
-	- React Native wrapper logs can be forwarded to file and custom sinks
 
-## Upgrading?
+## Upgrading from 0.6.x?
 
-If you are upgrading from 1.0.x to 1.1, see the [Version 1.1 Migration Guide](Guides/Migration/v1.1.md).
-
-If you are upgrading from 0.6.x, see the [Version 1.0 Migration Guide](Guides/Migration/v1.md) for detailed instructions on upgrading to version 1.0.
+See the [Migration Guide](Guides/Migration/v1.md) for detailed instructions on upgrading to version 1.0.
 
 
 ## Limitations

@@ -16,7 +16,7 @@ The version of this Native Module is based on supporting Couchbase Lite Enterpri
 
 The setup for using the Couchbase Lite React Native Native Module is a bit more involved than a typical React Native project.  This is because the Native Module is a wrapper around the Couchbase Lite SDKs for iOS and Android.  The Couchbase Lite SDKs are written in Swift and Kotlin, respectively, and are not directly compatible with JavaScript.  The Native Module provides a bridge between the two languages.
 
-Version 1.1 supports [React Native New Architecture](https://reactnative.dev/architecture/overview) through TurboModules. In React Native and Expo development builds, enable New Architecture when you want to use the TurboModule implementation.
+Version 1.1 supports React Native New Architecture through TurboModules. In React Native and Expo development builds, enable New Architecture when you want to use the TurboModule implementation.
 
 The installation for the Native Module is provided in two sections:  one section for standard React Native apps and one for Expo based apps.
 

@@ -9,7 +9,7 @@ const config = {
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
-  url: 'http://cbl-reactnative.dev',
+  url: 'https://cbl-reactnative.dev',
 
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
@@ -17,8 +17,8 @@ const config = {
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'Couchbase-Ecosystem', // Usually your GitHub org/user name.
-  projectName: 'cbl-reactnative-docs', // Usually your repo name.
+  organizationName: 'couchbase', // Usually your GitHub org/user name.
+  projectName: 'couchbase-lite-react-native', // Usually your repo name.
   deploymentBranch: 'gh-pages',
   trailingSlash: false,
 
@@ -66,15 +66,29 @@ const config = {
         docs: {
           sidebarPath: './sidebars.js',
           routeBasePath: '/',
+          lastVersion: 'current',
+          versions: {
+            current: {
+              label: 'v1.1',
+              path: '',
+              banner: 'none',
+            },
+            '1.0': {
+              label: 'v1.0',
+              path: '1.0',
+              banner: 'none',
+            },
+          },
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl: 'https://github.com/Couchbase-Ecosystem/cbl-reactnative-docs',
+          editUrl: 'https://github.com/couchbase/couchbase-lite-react-native/tree/main/cbl-reactnative-docs',
         },
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl: 'https://github.com/Couchbase-Ecosystem/cbl-reactnative-docs',        },
+          editUrl: 'https://github.com/couchbase/couchbase-lite-react-native/tree/main/cbl-reactnative-docs',
+        },
         theme: {
           customCss: './src/css/custom.css',
         },
@@ -111,7 +125,11 @@ const config = {
         items: [
           {to: 'blog', label: 'Blog', position: 'left'},
           {
-            href: 'https://github.com/Couchbase-Ecosystem/cbl-reactnative',
+            type: 'docsVersionDropdown',
+            position: 'right',
+          },
+          {
+            href: 'https://github.com/couchbase/couchbase-lite-react-native',
             label: 'GitHub',
             position: 'right',
           },
@@ -131,7 +149,7 @@ const config = {
             items: [
               {
                 label: 'Overview',
-                to: 'docs/intro',
+                to: '/',
               },
             ],
           },
@@ -169,7 +187,7 @@ const config = {
               },
               {
                 label: 'GitHub',
-                href: 'https://github.com/Couchbase-Ecosystem/cbl-reactnative',
+                href: 'https://github.com/couchbase/couchbase-lite-react-native',
               },
             ],
           },
