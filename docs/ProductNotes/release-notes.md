@@ -15,6 +15,7 @@ New Features:
 - `FileSystem.getFilesInDirectory(path)` API for listing files in a directory, useful when discovering generated log files.
 
 Improvements and Fixes:
+- Updated Couchbase Lite Android and iOS Enterprise SDKs to 3.3.3.
 - Improved listener reliability for collection, query, and replicator events on the New Architecture event path.
 - Replicator event payloads now include error fields where applicable.
 - Document expiration handling now supports clearing expiration with `null` and uses stricter UTC ISO-8601 parsing.

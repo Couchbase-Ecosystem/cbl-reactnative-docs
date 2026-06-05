@@ -6,7 +6,7 @@ sidebar_position: 7
 # Documents 
 
 > Description - _Couchbase Lite Concepts - Data Model - Documents_  
-> Related Content - [Databases](databases.md) | [Blobs](blobs.md) | [Indexing](indexes.md)
+> Related Content - [Databases](databases.md) | [Blobs](blobs.md) | [Indexing](indexing.md)
 
 ## Overview
 
@@ -97,7 +97,7 @@ First open your database. If the database does not already exist, Couchbase Lite
 ```typescript
 const myDatabase = new Database('myDatabaseName', config);
 ```
-See [Databases](databases.md) for more information.
+See [Databases](https://cbl-reactnative.dev/databases) for more information.
 
 ### Create a Document
 
@@ -442,12 +442,6 @@ const expirationDate = new Date('2024-12-31T23:59:59');
 await collection.setDocumentExpiration('doc123', expirationDate);
 ```
 
-In version 1.1, passing `null` clears a document's expiration. Expiration values are parsed as strict UTC ISO-8601 dates when crossing the native bridge.
-
-```typescript
-await collection.setDocumentExpiration('doc123', null);
-```
-
 ## Purge a Document
 
 Documents can be purged from the local database using the `purge` method on the collection they are stored in.
@@ -473,8 +467,6 @@ const doc = collection.document('doc1');
 await collection.delete(doc);
 ```
 Note that document deletion are replicated to Sync Gateway or Capella App Services.
-
-When using `ConcurrencyControl.FAIL_ON_CONFLICT`, version 1.1 checks the document revision ID before deleting. A delete using a stale document revision rejects instead of deleting a newer revision.
 
 ## Document Constraints
 

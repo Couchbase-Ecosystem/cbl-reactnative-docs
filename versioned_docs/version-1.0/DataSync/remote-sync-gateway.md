@@ -506,10 +506,6 @@ await replicator.start();
 
 1. The callback should follow the semantics of a [pure function](https://en.wikipedia.org/wiki/Pure_function). Otherwise, long running functions would slow down the replicator considerably.
 
-:::note Version 1.1
-Android replication filters now support JavaScript arrow functions in the V8 evaluation path.
-:::
-
 ##### Pull Filter
 
 The pull filter gives an app the ability to validate documents being pulled, and skip ones that fail. This is an important security mechanism in a peer-to-peer topology with peers that are not fully trusted.

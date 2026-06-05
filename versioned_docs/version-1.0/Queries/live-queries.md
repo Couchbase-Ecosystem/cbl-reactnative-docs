@@ -44,10 +44,6 @@ const token: ListenerToken = await query.addChangeListener((change) => {
 Change listeners now return a `ListenerToken` object with a `remove()` method for cleanup.
 :::
 
-:::note Version 1.1
-Live query listeners use the TurboModule typed event path on New Architecture builds. This improves listener routing and cleanup consistency across iOS and Android.
-:::
-
 #### Example 2. Stopping a Live Query - Change Listener
 
 ```typescript

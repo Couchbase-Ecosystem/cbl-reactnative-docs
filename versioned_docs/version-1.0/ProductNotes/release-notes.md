@@ -5,35 +5,6 @@ sidebar_position: 1
 
 # Release Notes
 
-**1.1.0** (June 2026)
-
-New Features:
-- Official React Native New Architecture / TurboModule support for iOS and Android native modules.
-- Improved file logging: React Native wrapper diagnostics can now be forwarded into configured file and custom log sinks.
-- React Native-originated log lines are prefixed with `RN ::LEVEL::` so they are easy to distinguish from native Couchbase Lite log output.
-- `LogSinks.write()` API for writing app-authored messages into the Couchbase Lite logging pipeline.
-- `FileSystem.getFilesInDirectory(path)` API for listing files in a directory, useful when discovering generated log files.
-
-Improvements and Fixes:
-- Improved listener reliability for collection, query, and replicator events on the New Architecture event path.
-- Replicator event payloads now include error fields where applicable.
-- Document expiration handling now supports clearing expiration with `null` and uses stricter UTC ISO-8601 parsing.
-- Delete operations using `ConcurrencyControl.FAIL_ON_CONFLICT` now honor revision IDs more consistently.
-- Android replicator filters can use JavaScript arrow functions in the V8 evaluation path.
-
-Repository Updates:
-- Main React Native repository: [couchbase/couchbase-lite-react-native](https://github.com/couchbase/couchbase-lite-react-native)
-- Shared JavaScript library repository: [couchbase/couchbase-lite-js-common](https://github.com/couchbase/couchbase-lite-js-common)
-
-Migration from 1.0.x:
-- Existing application-level APIs remain largely compatible.
-- Enable React Native New Architecture to use the TurboModule implementation.
-- Review logging setup if you want React Native wrapper logs included in file or custom log sinks.
-
-See [Migration Guide](../Guides/Migration/v1.1.md) for detailed instructions.
-
----
-
 **1.0.0** (December 2025)
 
 New Features:
@@ -75,14 +46,14 @@ See [Migration Guide](../Guides/Migration/v1.md) for detailed instructions.
 ---
 
 **0.6.3**
-- Array handling and improve blob data validation in DataAdapter [null-pointer issue](https://github.com/couchbase/couchbase-lite-react-native/pull/73)
+- Array handling and improve blob data validation in DataAdapter [null-pointer issue](https://github.com/Couchbase-Ecosystem/cbl-reactnative/pull/73)
 - Fix a crash caused by improper handling of encryption key
 
 **0.6.1**
-- Implemented [Collection Change Listeners](https://github.com/couchbase/couchbase-lite-react-native/pull/54) on Android
-- Implemented [Query Change Listeners](https://github.com/couchbase/couchbase-lite-react-native/pull/55) on Android
+- Implemented [Collection Change Listeners](https://github.com/Couchbase-Ecosystem/cbl-reactnative/pull/54) on Android
+- Implemented [Query Change Listeners](https://github.com/Couchbase-Ecosystem/cbl-reactnative/pull/55) on Android
 - Fixed data adapter issues and improved testing
-- Fixed [issue](https://github.com/couchbase/couchbase-lite-react-native/issues/38) related to collection `getDocument` always pulling blob content
+- Fixed [issue](https://github.com/Couchbase-Ecosystem/cbl-reactnative/issues/38) related to collection `getDocument` always pulling blob content
 
 **0.5.0**
 - Implemented Collection Document Change

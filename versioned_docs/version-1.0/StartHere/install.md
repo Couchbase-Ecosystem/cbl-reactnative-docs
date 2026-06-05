@@ -5,7 +5,7 @@ sidebar_position: 2
 # Install
 
  :::note
-This Native Module is currently under active development.  If you find problems, please open an issue on the [GitHub repo](https://github.com/couchbase/couchbase-lite-react-native/issues).
+This Native Module is currently under active development.  If you find problems, please open an issue on the [GitHub repo](https://github.com/Couchbase-Ecosystem/cbl-reactnative/issues).
  :::
 
 :::note
@@ -15,8 +15,6 @@ The version of this Native Module is based on supporting Couchbase Lite Enterpri
 ## Get Started
 
 The setup for using the Couchbase Lite React Native Native Module is a bit more involved than a typical React Native project.  This is because the Native Module is a wrapper around the Couchbase Lite SDKs for iOS and Android.  The Couchbase Lite SDKs are written in Swift and Kotlin, respectively, and are not directly compatible with JavaScript.  The Native Module provides a bridge between the two languages.
-
-Version 1.1 supports React Native New Architecture through TurboModules. In React Native and Expo development builds, enable New Architecture when you want to use the TurboModule implementation.
 
 The installation for the Native Module is provided in two sections:  one section for standard React Native apps and one for Expo based apps.
 
@@ -42,9 +40,7 @@ cd ..
 
 #### Android
 
-For React Native New Architecture builds, make sure `newArchEnabled=true` is set in your Android project configuration.
-
-If your app needs manual Gradle wiring, update the Android Gradle file to include the native module. This can be done by editing the build.gradle file in the android directory of your React native app and adding the following line below the apply plugin line for the com.facebook.react.rootproject:
+In the current beta release, the Android Gradle file needs to be updated manually to include the native module.  This can be done by editing the build.gradle file in the android directory of your React native app and adding the following line below the apply plugin line for the com.facebook.react.rootproject:
 
 ```kotlin
 apply from: "../node_modules/cbl-reactnative/android/build.gradle"
@@ -157,16 +153,6 @@ When completed, the `expo` section of your app.json file should look something l
 ```
 
 You can now build your expo app locally on iOS and Android.  The native module will be included in the build.
-
-For Expo development builds using version 1.1, enable New Architecture in `app.json`:
-
-```json
-{
-  "expo": {
-    "newArchEnabled": true
-  }
-}
-```
 
 iOS:
 ```bash

@@ -9,7 +9,7 @@ sidebar_position: 2
 Supported iOS and Android versions are dependent on React Native.  See the [React Native Documentation](https://github.com/reactwg/react-native-releases/blob/main/docs/support.md) documentation for more information.
  :::
 
-The cbl-reactnative library is built against Couchbase Lite Enterprise for iOS and Android. Version 1.1 uses Couchbase Lite Android Enterprise 3.3.0 and Couchbase Lite Swift Enterprise 3.3.1.
+The cbl-reactnative library is built against Couchbase Lite Enterprise for iOS and Android. Version 1.1 uses Couchbase Lite Android Enterprise 3.3.3 and Couchbase Lite Swift Enterprise 3.3.3.
 
 Version 1.1 supports [React Native New Architecture](https://reactnative.dev/architecture/overview) through TurboModules. Apps should use React Native 0.76.3 or higher and enable New Architecture for the TurboModule path.
 

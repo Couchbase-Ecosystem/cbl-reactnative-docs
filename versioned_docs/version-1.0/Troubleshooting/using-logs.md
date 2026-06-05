@@ -34,8 +34,6 @@ Log output is split into the following streams:
 
 Version 1.0 introduces the Log Sink API which provides three types of log sinks for flexible logging control.
 
-Version 1.1 improves file logging by forwarding React Native wrapper diagnostics into configured file and custom log sinks. These wrapper-originated lines are prefixed with `RN ::LEVEL::`, for example `RN ::DEBUG:: database_Open`, so they can be distinguished from native Couchbase Lite SDK logs.
-
 ### Log Levels
 
 | Level | Value | Description |
@@ -125,30 +123,6 @@ When a log file reaches `maxFileSize`, it's closed and a new one is created. Old
 await LogSinks.setFile(null);
 ```
 
-### React Native Wrapper Logs in File Logging
-
-When file logging is enabled, version 1.1 can include diagnostics from the React Native wrapper in the same log files as native Couchbase Lite logs. This helps troubleshoot issues that cross the JavaScript/native boundary, such as listener registration, database open/close calls, query execution, and replication operations.
-
-Wrapper log lines use the `RN` marker:
-
-```text
-RN ::DEBUG:: database_Open
-RN ::WARNING:: query_RemoveChangeListener rejected: no listener for token
-RN ::ERROR:: collection_Save failed
-```
-
-The wrapper avoids forwarding sensitive payloads such as document bodies, blob contents, encryption keys, and raw filesystem paths.
-
-You can use `FileSystem.getFilesInDirectory(path)` to list generated log files in the log directory:
-
-```typescript
-import { FileSystem } from 'cbl-reactnative';
-
-const fileSystem = new FileSystem();
-const files = await fileSystem.getFilesInDirectory(logDirectory);
-console.log('Log files:', files);
-```
-
 ## Custom Log Sink
 
 Custom logging allows you to implement your own logging logic with a callback function.
@@ -173,22 +147,6 @@ await LogSinks.setCustom({
 ```typescript
 await LogSinks.setCustom(null);
 ```
-
-## Writing App Logs to Couchbase Lite Sinks
-
-Version 1.1 adds `LogSinks.write()` for writing your own application log messages into the configured Couchbase Lite logging pipeline. These messages are delivered to enabled sinks such as file, console, and custom sinks.
-
-```typescript
-import { LogSinks, LogLevel, LogDomain } from 'cbl-reactnative';
-
-await LogSinks.write(
-  LogLevel.WARNING,
-  LogDomain.DATABASE,
-  'Retrying database open after transient failure'
-);
-```
-
-`LogSinks.write()` accepts concrete domains such as `DATABASE`, `QUERY`, `REPLICATOR`, `NETWORK`, and `LISTENER`. `LogDomain.ALL` is for sink configuration and is not accepted for a single written log line.
 
 ## Using Multiple Log Sinks
 

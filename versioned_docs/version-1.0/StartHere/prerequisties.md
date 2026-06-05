@@ -5,14 +5,13 @@ sidebar_position: 1
 
 # Prerequisites
 
-Couchbase Lite for React Native is provided as a [Native Module](https://reactnative.dev/docs/native-modules-intro).
+Couchbase Lite for React Native is provided as a [Native Module](https://reactnative.dev/docs/legacy/native-modules-intro).
 
-The Native Module can be found at the following repository: [Couchbase Lite for React Native](https://github.com/couchbase/couchbase-lite-react-native). Shared TypeScript and JavaScript code lives in [couchbase-lite-js-common](https://github.com/couchbase/couchbase-lite-js-common).
+The Native Module can be found at the following repository [Couchbase Lite for React Native](https://github.com/Couchbase-Ecosystem/cbl-reactnative).  This plugin is actively developed and maintained by the community.  It is not an official Couchbase product.  
 
 A developer using this plugin should have a basic understanding of the following technologies:
 - [React Native](https://reactnative.dev/)
-- [React Native - Native Modules](https://reactnative.dev/docs/native-modules-intro)
-- [React Native - New Architecture](https://reactnative.dev/architecture/overview)
+- [React Native - Native Modules](https://reactnative.dev/docs/legacy/native-modules-intro)
 - [Expo Framework](https://docs.expo.dev/)
 - [Couchbase Lite](https://docs.couchbase.com/couchbase-lite/current/index.html)
 
@@ -24,7 +23,6 @@ React Native's recommmendation is to use [Expo](https://reactnative.dev/blog/202
 
 ## React Native Version
 - The plugin is built using React Native 0.76.3. Support for older versions of React Native is not guaranteed and apps should be based on 0.76.3 or higher. 
-- Version 1.1 supports TurboModules through React Native New Architecture. Apps should enable New Architecture when using the TurboModule implementation.
 
 Please review the React Native [Support documentation](https://github.com/reactwg/react-native-releases/blob/main/docs/support.md) for a full listed of supported platform versions.
 
