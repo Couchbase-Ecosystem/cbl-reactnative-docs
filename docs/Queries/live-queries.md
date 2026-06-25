@@ -23,7 +23,7 @@ Each time you start watching a live query, the query is executed and an initial 
 #### Example 1. Starting a Live Query - Change Listener
 
 ```typescript
-import { ListenerToken } from 'cbl-reactnative';
+import { ListenerToken } from '@couchbase/couchbase-lite-react-native';
 
 // Register a change listener
 const token: ListenerToken = await query.addChangeListener((change) => {  
@@ -82,7 +82,7 @@ interface QueryChange {
 #### Example 3. Complete Live Query with Error Handling
 
 ```typescript
-import { ListenerToken } from 'cbl-reactnative';
+import { ListenerToken } from '@couchbase/couchbase-lite-react-native';
 
 const query = database.createQuery(
   'SELECT META().id, name, email FROM _default.users WHERE isActive = true'
@@ -108,7 +108,7 @@ await token.remove();
 
 ```typescript
 import { useEffect, useState } from 'react';
-import { ListenerToken } from 'cbl-reactnative';
+import { ListenerToken } from '@couchbase/couchbase-lite-react-native';
 
 function ActiveUsersScreen({ database }) {
   const [users, setUsers] = useState([]);

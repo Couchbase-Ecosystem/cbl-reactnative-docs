@@ -46,14 +46,14 @@ See [Migration Guide](../Guides/Migration/v1.md) for detailed instructions.
 ---
 
 **0.6.3**
-- Array handling and improve blob data validation in DataAdapter [null-pointer issue](https://github.com/Couchbase-Ecosystem/cbl-reactnative/pull/73)
+- Array handling and improve blob data validation in DataAdapter [null-pointer issue](https://github.com/couchbase/couchbase-lite-react-native/pull/73)
 - Fix a crash caused by improper handling of encryption key
 
 **0.6.1**
-- Implemented [Collection Change Listeners](https://github.com/Couchbase-Ecosystem/cbl-reactnative/pull/54) on Android
-- Implemented [Query Change Listeners](https://github.com/Couchbase-Ecosystem/cbl-reactnative/pull/55) on Android
+- Implemented [Collection Change Listeners](https://github.com/couchbase/couchbase-lite-react-native/pull/54) on Android
+- Implemented [Query Change Listeners](https://github.com/couchbase/couchbase-lite-react-native/pull/55) on Android
 - Fixed data adapter issues and improved testing
-- Fixed [issue](https://github.com/Couchbase-Ecosystem/cbl-reactnative/issues/38) related to collection `getDocument` always pulling blob content
+- Fixed [issue](https://github.com/couchbase/couchbase-lite-react-native/issues/38) related to collection `getDocument` always pulling blob content
 
 **0.5.0**
 - Implemented Collection Document Change

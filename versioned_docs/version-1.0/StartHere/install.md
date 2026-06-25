@@ -5,11 +5,11 @@ sidebar_position: 2
 # Install
 
  :::note
-This Native Module is currently under active development.  If you find problems, please open an issue on the [GitHub repo](https://github.com/Couchbase-Ecosystem/cbl-reactnative/issues).
+This Native Module is currently under active development.  If you find problems, please open an issue on the [GitHub repo](https://github.com/couchbase/couchbase-lite-react-native/issues).
  :::
 
 :::note
-The version of this Native Module is based on supporting Couchbase Lite Enterprise for iOS and Android.  This Native Module is not compatible with Couchbase Lite Community Edition.  A [license](https://www.couchbase.com/pricing/) is required to use Couchbase Lite Enterprise edition.
+The version of this Native Module is based on supporting Couchbase Lite Enterprise for iOS and Android.  A [license](https://www.couchbase.com/pricing/) is required to use Couchbase Lite Enterprise edition.
 :::
 
 ## Get Started

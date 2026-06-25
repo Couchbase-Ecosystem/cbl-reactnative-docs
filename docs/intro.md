@@ -14,15 +14,15 @@ Couchbase Lite is an embedded, document-style NoSQL database that is syncable an
 
 Couchbase Lite for React Native is a Native Module implementation of Couchbase Lite for React Native using Typescript. It has feature parity with Couchbase Lite implementations for other platforms, with a few exceptions.
 
-Version 1.1 adds official React Native New Architecture support through TurboModules and improves file logging so React Native wrapper diagnostics can be captured alongside native Couchbase Lite logs.
+Version 1.1 adds official React Native New Architecture support through TurboModules.
 
-More information on React Native - Native Modules can be found here: [React Native Docs](https://reactnative.dev/docs/native-modules-intro)
+More information on React Native - Native Modules can be found here: [React Native Docs](https://reactnative.dev/docs/legacy/native-modules-intro)
 
 :::note
 This plugin only works with iOS and Android platforms.  Web, Windows, and MacOS support is not available.
 :::
 
-The version of this Native Module is based on supporting Couchbase Lite Enterprise for iOS and Android.  This Native Module is not compatible with Couchbase Lite Community Edition.  A [license](https://www.couchbase.com/pricing/) is required to use Couchbase Lite Enterprise edition.  
+The version of this Native Module is based on supporting Couchbase Lite Enterprise for iOS and Android.  A [license](https://www.couchbase.com/pricing/) is required to use Couchbase Lite Enterprise edition.  
 
 ## Features
 * Offline First
@@ -59,6 +59,9 @@ If you are upgrading from 1.0.x to 1.1, see the [Version 1.1 Migration Guide](Gu
 
 If you are upgrading from 0.6.x, see the [Version 1.0 Migration Guide](Guides/Migration/v1.md) for detailed instructions on upgrading to version 1.0.
 
+:::note
+Migrating from 0.6.x directly to 1.1? Follow both guides in order — complete the [Version 1.0 Migration Guide](Guides/Migration/v1.md) first, then the [Version 1.1 Migration Guide](Guides/Migration/v1.1.md).
+:::
 
 ## Limitations
 Some of the features supported by other platform implementations of Couchbase Lite are currently not supported:

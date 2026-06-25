@@ -5,19 +5,19 @@ sidebar_position: 1
 
 # Prerequisites
 
-Couchbase Lite for React Native is provided as a [Native Module](https://reactnative.dev/docs/native-modules-intro). Version 1.1 supports [React Native New Architecture](https://reactnative.dev/architecture/overview) through TurboModules on iOS and Android.
+Couchbase Lite for React Native is provided as a [Native Module](https://reactnative.dev/docs/legacy/native-modules-intro). Version 1.1 supports [React Native New Architecture](https://reactnative.dev/architecture/overview) through TurboModules on iOS and Android.
 
-The Native Module can be found at the following repository: [Couchbase Lite for React Native](https://github.com/couchbase/couchbase-lite-react-native). Shared TypeScript and JavaScript code lives in [couchbase-lite-js-common](https://github.com/couchbase/couchbase-lite-js-common).
+The Native Module can be found at the following repository: [Couchbase Lite for React Native](https://github.com/couchbase/couchbase-lite-react-native). Shared TypeScript and JavaScript code lives in [cblite-js](https://github.com/couchbase/couchbase-lite-js-common).
 
 A developer using this plugin should have a basic understanding of the following technologies:
 - [React Native](https://reactnative.dev/)
-- [React Native - Native Modules](https://reactnative.dev/docs/native-modules-intro)
+- [React Native - Native Modules](https://reactnative.dev/docs/legacy/native-modules-intro)
 - [React Native - New Architecture](https://reactnative.dev/architecture/overview)
 - [Expo Framework](https://docs.expo.dev/)
 - [Couchbase Lite](https://docs.couchbase.com/couchbase-lite/current/index.html)
 
 ## Expo Note
-React Native's recommmendation is to use [Expo](https://reactnative.dev/blog/2024/06/25/use-a-framework-to-build-react-native-apps) for development . The example app that comes with the cbl-reactnative repo is an Expo based app, thus this Native Module can work in Expo apps.  Note using Expo Go is not supported due to Expo Go not supporting loading 3rd party Native Modules.  You will need to be familiar with the [Expo Dev Client](https://docs.expo.dev/guides/local-app-development/#local-builds-with-expo-dev-client) process to use this Native Module in an Expo app. 
+React Native's recommmendation is to use [Expo](https://reactnative.dev/blog/2024/06/25/use-a-framework-to-build-react-native-apps) for development . The example app that comes with the repository is an Expo based app, thus this Native Module can work in Expo apps.  Note using Expo Go is not supported due to Expo Go not supporting loading 3rd party Native Modules.  You will need to be familiar with the [Expo Dev Client](https://docs.expo.dev/guides/local-app-development/#local-builds-with-expo-dev-client) process to use this Native Module in an Expo app. 
 
 ## Supported Platforms
 - The React Native - Native Module is supported on iOS and Android platforms.  MacOS, Windows, and Web support is not available at this time.
@@ -33,12 +33,12 @@ Please review the React Native [Support documentation](https://github.com/reactw
     - [Node >= 20](https://formulae.brew.sh/formula/node@18)
 - React Native
     - [React Native Docs](https://reactnative.dev/)
-    - [Understanding React Native - Native Modules ](https://reactnative.dev/docs/native-modules-intro)
+    - [Understanding React Native - Native Modules ](https://reactnative.dev/docs/legacy/native-modules-intro)
 - Expo (if you choose to use Expo, not required but recommended)
     - [Expo Docs](https://docs.expo.dev/)
     - [Expo Dev Client](https://docs.expo.dev/guides/local-app-development/#local-builds-with-expo-dev-client)
     - [Expo Mono Repos](https://docs.expo.dev/guides/monorepos/)
-    - [Expo Plugin and mods](https://docs.expo.dev/config-plugins/plugins-and-mods/)
+    - [Expo Plugin and mods](https://docs.expo.dev/config-plugins/introduction/)
 - IDEs
     - [Visual Studio Code](https://code.visualstudio.com/download)
     - [IntelliJ IDEA](https://www.jetbrains.com/idea/download/)
