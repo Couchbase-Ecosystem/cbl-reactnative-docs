@@ -17,8 +17,9 @@ Couchbase Lite for React Native is a Native Module implementation of Couchbase L
 More information on React Native - Native Modules can be found here: [React Native Docs](https://reactnative.dev/docs/legacy/native-modules-intro)
 
 :::note
-This plugin only works with iOS and Android platforms.  Web, Windows, and MacOS support is not available.
+Couchbase Lite for React Native has officially graduated from a community project to a fully Enterprise-Supported offering
 :::
+
 
 The version of this Native Module is based on supporting Couchbase Lite Enterprise for iOS and Android.  A [license](https://www.couchbase.com/pricing/) is required to use Couchbase Lite Enterprise edition.  
 
@@ -45,6 +46,10 @@ The version of this Native Module is based on supporting Couchbase Lite Enterpri
 	- Replication
 * Encryption
 	- Full Database 
+
+:::note
+This plugin only works with iOS and Android platforms.  Web, Windows, and MacOS support is not available.
+:::
 
 ## Upgrading from 0.6.x?
 
