@@ -25,7 +25,8 @@ const config = {
   onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
 
-  // OneTrust Cookies Consent Notice for couchbase.com
+  // OneTrust cookie consent (Couchbase script; see static/js/onetrust-wrapper.js
+  // for cbl-reactnative.dev persistence workaround).
   headTags: [
     {
       tagName: 'script',
@@ -33,15 +34,17 @@ const config = {
         src: 'https://cdn.cookielaw.org/scripttemplates/otSDKStub.js',
         type: 'text/javascript',
         charset: 'UTF-8',
-        'data-domain-script': '748511ff-10bf-44bf-88b8-36382e5b5fd9',
+        'data-domain-script':
+          process.env.ONETRUST_DOMAIN_SCRIPT ||
+          '748511ff-10bf-44bf-88b8-36382e5b5fd9',
       },
     },
     {
       tagName: 'script',
       attributes: {
+        src: '/js/onetrust-wrapper.js',
         type: 'text/javascript',
       },
-      innerHTML: 'function OptanonWrapper() {}',
     },
     {
       tagName: 'script',
