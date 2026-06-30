@@ -157,7 +157,7 @@ There is NO direct `database` property. Access it via `change.collection.databas
 #### Example 6. Basic Collection Listener
 
 ```typescript
-import { Collection, ListenerToken } from '@couchbase/couchbase-lite-react-native';
+import { Collection, ListenerToken } from 'cbl-reactnative';
 
 const collection = await database.createCollection('users');
 
@@ -181,7 +181,7 @@ await token.remove();
 
 ```typescript
 import { useEffect } from 'react';
-import { ListenerToken } from '@couchbase/couchbase-lite-react-native';
+import { ListenerToken } from 'cbl-reactnative';
 
 function UserListScreen({ collection }) {
   useEffect(() => {

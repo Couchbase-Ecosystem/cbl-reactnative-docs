@@ -5,38 +5,6 @@ sidebar_position: 1
 
 # Release Notes
 
-**1.1.0** (June 2026)
-
-New Features:
-- Official React Native New Architecture / TurboModule support for iOS and Android native modules.
-- Improved file logging: React Native wrapper diagnostics can now be forwarded into configured file and custom log sinks.
-- React Native-originated log lines are prefixed with `RN ::LEVEL::` so they are easy to distinguish from native Couchbase Lite log output.
-- `LogSinks.write()` API for writing app-authored messages into the Couchbase Lite logging pipeline.
-- `FileSystem.getFilesInDirectory(path)` API for listing files in a directory, useful when discovering generated log files.
-
-Improvements and Fixes:
-- Updated Couchbase Lite Android and iOS Enterprise SDKs to 3.3.3.
-- Improved listener reliability for collection, query, and replicator events on the New Architecture event path.
-- Replicator event payloads now include error fields where applicable.
-- Document expiration handling now supports clearing expiration with `null` and uses stricter UTC ISO-8601 parsing.
-- Delete operations using `ConcurrencyControl.FAIL_ON_CONFLICT` now honor revision IDs more consistently.
-- Android replicator filters can use JavaScript arrow functions in the V8 evaluation path.
-
-Repository Updates:
-- Official npm package: [@couchbase/couchbase-lite-react-native](https://www.npmjs.com/package/@couchbase/couchbase-lite-react-native)
-- The legacy `cbl-reactnative` package is superseded; new installs and upgrades should use the scoped package
-- Main React Native repository: [couchbase/couchbase-lite-react-native](https://github.com/couchbase/couchbase-lite-react-native)
-- Shared JavaScript library repository: [couchbase/couchbase-lite-js-common](https://github.com/couchbase/couchbase-lite-js-common)
-
-Migration from 1.0.x:
-- Existing application-level APIs remain largely compatible.
-- Enable React Native New Architecture to use the TurboModule implementation.
-- Review logging setup if you want React Native wrapper logs included in file or custom log sinks.
-
-See [Migration Guide](../Guides/Migration/v1.1.md) for detailed instructions.
-
----
-
 **1.0.0** (December 2025)
 
 New Features:

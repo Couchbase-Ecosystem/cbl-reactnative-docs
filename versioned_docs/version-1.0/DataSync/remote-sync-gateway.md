@@ -137,7 +137,7 @@ import {
   BasicAuthenticator,
   Replicator,
   ListenerToken
-} from '@couchbase/couchbase-lite-react-native';
+} from 'cbl-reactnative';
 
 // Create endpoint and authenticator
 const endpoint = new URLEndpoint('ws://localhost:4984/projects');
@@ -202,7 +202,7 @@ The `addCollection()` method is deprecated. It remains available for backward co
 The new API allows each collection to have its own replication settings:
 
 ```typescript
-import { CollectionConfiguration } from '@couchbase/couchbase-lite-react-native';
+import { CollectionConfiguration } from 'cbl-reactnative';
 
 // Configure users collection
 const usersConfig = new CollectionConfiguration(usersCollection)
@@ -506,10 +506,6 @@ await replicator.start();
 
 1. The callback should follow the semantics of a [pure function](https://en.wikipedia.org/wiki/Pure_function). Otherwise, long running functions would slow down the replicator considerably.
 
-:::note Version 1.1
-Android replication filters now support JavaScript arrow functions in the V8 evaluation path.
-:::
-
 ##### Pull Filter
 
 The pull filter gives an app the ability to validate documents being pulled, and skip ones that fail. This is an important security mechanism in a peer-to-peer topology with peers that are not fully trusted.
@@ -726,7 +722,7 @@ The returned *ReplicationStatus* structure comprises:
 #### Example 14. Monitor replication
 
 ```typescript
-import { ListenerToken } from '@couchbase/couchbase-lite-react-native';
+import { ListenerToken } from 'cbl-reactnative';
 
 const token: ListenerToken = await replicator.addChangeListener((change) => {
     const status = change.status;
@@ -764,7 +760,7 @@ interface ReplicatorStatusChange {
 #### Example 14b. Advanced Replication Status Monitoring
 
 ```typescript
-import { ListenerToken, ReplicatorActivityLevel } from '@couchbase/couchbase-lite-react-native';
+import { ListenerToken, ReplicatorActivityLevel } from 'cbl-reactnative';
 
 const token: ListenerToken = await replicator.addChangeListener((change) => {
   const status = change.status;
@@ -851,7 +847,7 @@ For example, the code snippet in [Example 15](#example-15-register-a-document-li
 #### Example 15. Register a document listener
 
 ```typescript
-import { ListenerToken } from '@couchbase/couchbase-lite-react-native';
+import { ListenerToken } from 'cbl-reactnative';
 
 const token: ListenerToken = await replicator.addDocumentChangeListener((replication) => {
     const direction = replication.isPush ? "Push" : "Pull";
@@ -973,7 +969,7 @@ As always, when there is a problem with replication, logging is your friend. You
 #### Example 21. Set logging verbosity
 
 ```typescript
-import { LogSinks, LogLevel, LogDomain } from '@couchbase/couchbase-lite-react-native';
+import { LogSinks, LogLevel, LogDomain } from 'cbl-reactnative';
 
 // Verbose / Replicator and Network
 await LogSinks.setConsole({

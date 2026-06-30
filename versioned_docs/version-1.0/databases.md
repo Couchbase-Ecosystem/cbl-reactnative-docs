@@ -57,7 +57,7 @@ In a React Native application using Couchbase Lite, begin by initializing the Re
 
 **Example: Initializing React Native Engine and Database Context**
 ```typescript
-import { CblReactNativeEngine } from '@couchbase/couchbase-lite-react-native';
+import { CblReactNativeEngine } from 'cbl-reactnative';
 
 const engine = new CblReactNativeEngine(); // Initialize once, early in your app
 ```
@@ -66,12 +66,12 @@ This configuration ensures seamless interaction between your React Native app an
 
 ### Create or Open a Database
 
-To create or open a database, use the Database class from the @couchbase/couchbase-lite-react-native package, specifying the database name and optionally, a DatabaseConfiguration for custom settings like the database directory or encryption.
+To create or open a database, use the Database class from the cbl-reactnative package, specifying the database name and optionally, a DatabaseConfiguration for custom settings like the database directory or encryption.
 
 **Example 1. Creating/Opening a Database**
 
 ```javascript
-import { Database, DatabaseConfiguration } from '@couchbase/couchbase-lite-react-native'; //import the package
+import { Database, DatabaseConfiguration } from 'cbl-reactnative'; //import the package
 ```
 
 ```javascript
@@ -179,7 +179,7 @@ You can download and build it from the couchbaselabs [GitHub repository](https:/
 You should use console logs as your first source of diagnostic information. If the default logging level is insufficient, you can enable verbose logging scoped specifically to database operations.
 
 ```typescript
-import { LogSinks, LogLevel, LogDomain } from '@couchbase/couchbase-lite-react-native';
+import { LogSinks, LogLevel, LogDomain } from 'cbl-reactnative';
 
 try {
   await LogSinks.setConsole({

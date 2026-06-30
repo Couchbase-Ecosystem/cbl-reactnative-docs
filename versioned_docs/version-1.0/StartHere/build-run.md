@@ -29,7 +29,7 @@ import {
 	ReplicatorConfiguration,
 	ReplicatorType,
 	URLEndpoint
-} from '@couchbase/couchbase-lite-react-native';
+} from 'cbl-reactnative';
 
 
 async function runDbSample() : Promise<void> {

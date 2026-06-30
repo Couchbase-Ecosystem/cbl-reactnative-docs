@@ -16,23 +16,15 @@ The version of this Native Module is based on supporting Couchbase Lite Enterpri
 
 The setup for using the Couchbase Lite React Native Native Module is a bit more involved than a typical React Native project.  This is because the Native Module is a wrapper around the Couchbase Lite SDKs for iOS and Android.  The Couchbase Lite SDKs are written in Swift and Kotlin, respectively, and are not directly compatible with JavaScript.  The Native Module provides a bridge between the two languages.
 
-Version 1.1 supports [React Native New Architecture](https://reactnative.dev/architecture/overview) through TurboModules. In React Native and Expo development builds, enable New Architecture when you want to use the TurboModule implementation.
-
 The installation for the Native Module is provided in two sections:  one section for standard React Native apps and one for Expo based apps.
 
 ### React Native Based Apps 
 
-To use the Couchbase Lite React Native Native Module in a standard React Native app, you will need to install the npm package [@couchbase/couchbase-lite-react-native](https://www.npmjs.com/package/@couchbase/couchbase-lite-react-native).  From the root of your applications project directory (the directory containing your `package.json` file), run one of the following commands:
+To use the Couchbase Lite React Native Native Module in a standard React Native app, you will need to install the npm package.  From the root of your applications project directory (the directory containing your `package.json` file), run the following command:
 
 ```bash
-npm install @couchbase/couchbase-lite-react-native
-# or
-yarn add @couchbase/couchbase-lite-react-native
+npm install cbl-reactnative
 ```
-
-:::note
-New projects should install the scoped package above. Upgrading from the legacy `cbl-reactnative` package (1.0.1 and earlier)? See the [Version 1.1 Migration Guide](../Guides/Migration/v1.1.md#npm-package-rename).
-:::
 
 Once installed, you will want to build each native project (iOS and Android) to link the native module to your project.  
 
@@ -48,19 +40,17 @@ cd ..
 
 #### Android
 
-For React Native New Architecture builds, make sure `newArchEnabled=true` is set in your Android project configuration.
-
-If your app needs manual Gradle wiring, update the Android Gradle file to include the native module. This can be done by editing the build.gradle file in the android directory of your React native app and adding the following line below the apply plugin line for the com.facebook.react.rootproject:
+In the current beta release, the Android Gradle file needs to be updated manually to include the native module.  This can be done by editing the build.gradle file in the android directory of your React native app and adding the following line below the apply plugin line for the com.facebook.react.rootproject:
 
 ```kotlin
-apply from: "../node_modules/@couchbase/couchbase-lite-react-native/android/build.gradle"
+apply from: "../node_modules/cbl-reactnative/android/build.gradle"
 ```
 
 when completed the last two lines of the file should look something like this:
 
 ```kotlin
 apply plugin: "com.facebook.react.rootproject"
-apply from: "../node_modules/@couchbase/couchbase-lite-react-native/android/build.gradle"
+apply from: "../node_modules/cbl-reactnative/android/build.gradle"
 ```
 
 Now you can install the gradle dependencies and build the Android project:
@@ -91,7 +81,7 @@ npm run start
 
 For developers using Expo, you must make sure you have the dev-client installed in your app. Expo Go is not compatible with custom React Native Native Module.  To install the dev-client, review the [Expo documentation](https://docs.expo.dev/develop/development-builds/introduction/#what-is-expo-dev-client) along with the [Local App develompent documentation](https://docs.expo.dev/guides/local-app-development/).   These directions assume dev-client is setup and you can build locally your app on iOS and Android.
 
-The expo environment dynamically builds both the Cocoapod file for iOS and Gradle file for Android.  Because of this you will need to register the @couchbase/couchbase-lite-react-native package with the expo environment via the Expo plugin api. 
+The expo environment dynamically builds both the Cocoapod file for iOS and Gradle file for Android.  Because of this you will need to register the cbl-reactnative package with the expo environment via the Expo plugin api. 
 
 This can be done by creating a new file in the root of your project called `plugin.config.js` and adding the following code:
 
@@ -104,7 +94,7 @@ const {
 
 // Function to modify Android build.gradle
 function modifyAndroidBuildGradle(config) {
-  const lineToAdd = ` apply from: "../node_modules/@couchbase/couchbase-lite-react-native/android/build.gradle"`;
+  const lineToAdd = ` apply from: "../node_modules/cbl-reactnative/android/build.gradle"`;
   if (!config.modResults.contents.includes(lineToAdd)) {
     config.modResults.contents += `\n${lineToAdd}`;
     console.debug(config.modResults.contents);
@@ -123,7 +113,7 @@ function modifyXcodeProject(config) {
 // Function to modify Podfile properties to include the native module podspec
 function includeNativeModulePod(config) {
   return withPodfileProperties(config, async (podConfig) => {
-    const podspecPath = `../node_modules/@couchbase/couchbase-lite-react-native/cbl-reactnative.podspec`;
+    const podspecPath = `../node_modules/cbl-reactnative/cbl-reactnative.podspec`;
     if (podConfig.modResults.podfileProperties !== undefined && podConfig.modResults.podfileProperties.pod !== undefined) {
       podConfig.modResults.podfileProperties.pod(
           `'cbl-reactnative', :path => '${podspecPath}'`
@@ -163,16 +153,6 @@ When completed, the `expo` section of your app.json file should look something l
 ```
 
 You can now build your expo app locally on iOS and Android.  The native module will be included in the build.
-
-For Expo development builds using version 1.1, enable New Architecture in `app.json`:
-
-```json
-{
-  "expo": {
-    "newArchEnabled": true
-  }
-}
-```
 
 iOS:
 ```bash

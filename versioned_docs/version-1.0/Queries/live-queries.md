@@ -23,7 +23,7 @@ Each time you start watching a live query, the query is executed and an initial 
 #### Example 1. Starting a Live Query - Change Listener
 
 ```typescript
-import { ListenerToken } from '@couchbase/couchbase-lite-react-native';
+import { ListenerToken } from 'cbl-reactnative';
 
 // Register a change listener
 const token: ListenerToken = await query.addChangeListener((change) => {  
@@ -42,10 +42,6 @@ const token: ListenerToken = await query.addChangeListener((change) => {
 
 :::note Version 1.0
 Change listeners now return a `ListenerToken` object with a `remove()` method for cleanup.
-:::
-
-:::note Version 1.1
-Live query listeners use the TurboModule typed event path on New Architecture builds. This improves listener routing and cleanup consistency across iOS and Android.
 :::
 
 #### Example 2. Stopping a Live Query - Change Listener
@@ -82,7 +78,7 @@ interface QueryChange {
 #### Example 3. Complete Live Query with Error Handling
 
 ```typescript
-import { ListenerToken } from '@couchbase/couchbase-lite-react-native';
+import { ListenerToken } from 'cbl-reactnative';
 
 const query = database.createQuery(
   'SELECT META().id, name, email FROM _default.users WHERE isActive = true'
@@ -108,7 +104,7 @@ await token.remove();
 
 ```typescript
 import { useEffect, useState } from 'react';
-import { ListenerToken } from '@couchbase/couchbase-lite-react-native';
+import { ListenerToken } from 'cbl-reactnative';
 
 function ActiveUsersScreen({ database }) {
   const [users, setUsers] = useState([]);
