@@ -23,6 +23,8 @@ Improvements and Fixes:
 - Android replicator filters can use JavaScript arrow functions in the V8 evaluation path.
 
 Repository Updates:
+- Official npm package: [@couchbase/couchbase-lite-react-native](https://www.npmjs.com/package/@couchbase/couchbase-lite-react-native)
+- The legacy `cbl-reactnative` package is superseded; new installs and upgrades should use the scoped package
 - Main React Native repository: [couchbase/couchbase-lite-react-native](https://github.com/couchbase/couchbase-lite-react-native)
 - Shared JavaScript library repository: [couchbase/couchbase-lite-js-common](https://github.com/couchbase/couchbase-lite-js-common)
 

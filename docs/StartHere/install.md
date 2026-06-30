@@ -22,11 +22,17 @@ The installation for the Native Module is provided in two sections:  one section
 
 ### React Native Based Apps 
 
-To use the Couchbase Lite React Native Native Module in a standard React Native app, you will need to install the npm package.  From the root of your applications project directory (the directory containing your `package.json` file), run the following command:
+To use the Couchbase Lite React Native Native Module in a standard React Native app, you will need to install the npm package [@couchbase/couchbase-lite-react-native](https://www.npmjs.com/package/@couchbase/couchbase-lite-react-native).  From the root of your applications project directory (the directory containing your `package.json` file), run one of the following commands:
 
 ```bash
 npm install @couchbase/couchbase-lite-react-native
+# or
+yarn add @couchbase/couchbase-lite-react-native
 ```
+
+:::note
+New projects should install the scoped package above. Upgrading from the legacy `cbl-reactnative` package (1.0.1 and earlier)? See the [Version 1.1 Migration Guide](../Guides/Migration/v1.1.md#npm-package-rename).
+:::
 
 Once installed, you will want to build each native project (iOS and Android) to link the native module to your project.  
 

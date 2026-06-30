@@ -7,7 +7,7 @@ sidebar_position: 1
 
 Couchbase Lite for React Native is provided as a [Native Module](https://reactnative.dev/docs/legacy/native-modules-intro). Version 1.1 supports [React Native New Architecture](https://reactnative.dev/architecture/overview) through TurboModules on iOS and Android.
 
-The Native Module can be found at the following repository: [Couchbase Lite for React Native](https://github.com/couchbase/couchbase-lite-react-native). Shared TypeScript and JavaScript code lives in [cblite-js](https://github.com/couchbase/couchbase-lite-js-common).
+The Native Module can be found at the following repository: [Couchbase Lite for React Native](https://github.com/couchbase/couchbase-lite-react-native). npm package: [@couchbase/couchbase-lite-react-native](https://www.npmjs.com/package/@couchbase/couchbase-lite-react-native). Shared TypeScript and JavaScript code lives in [cblite-js](https://github.com/couchbase/couchbase-lite-js-common).
 
 A developer using this plugin should have a basic understanding of the following technologies:
 - [React Native](https://reactnative.dev/)

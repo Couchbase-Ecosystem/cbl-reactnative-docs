@@ -187,6 +187,10 @@ const config = {
                 label: 'GitHub',
                 href: 'https://github.com/couchbase/couchbase-lite-react-native',
               },
+              {
+                label: 'npm',
+                href: 'https://www.npmjs.com/package/@couchbase/couchbase-lite-react-native',
+              },
             ],
           },
         ],

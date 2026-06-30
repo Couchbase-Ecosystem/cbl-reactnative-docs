@@ -22,6 +22,8 @@ More information on React Native - Native Modules can be found here: [React Nati
 Couchbase Lite for React Native has officially graduated from a community project to a fully Enterprise-Supported offering
 :::
 
+Install via npm: [@couchbase/couchbase-lite-react-native](https://www.npmjs.com/package/@couchbase/couchbase-lite-react-native) — see [Install](StartHere/install.md) for full setup.
+
 The version of this Native Module is based on supporting Couchbase Lite Enterprise for iOS and Android.  A [license](https://www.couchbase.com/pricing/) is required to use Couchbase Lite Enterprise edition.  
 
 ## Features
