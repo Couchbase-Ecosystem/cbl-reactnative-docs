@@ -7,7 +7,7 @@ sidebar_position: 1
 
 Couchbase Lite for React Native is provided as a [Native Module](https://reactnative.dev/docs/legacy/native-modules-intro).
 
-The Native Module can be found at the following repository [Couchbase Lite for React Native](https://github.com/Couchbase-Ecosystem/cbl-reactnative).  This plugin is actively developed and maintained by the community.  It is not an official Couchbase product.  
+The Native Module can be found at the following repository [Couchbase Lite for React Native](https://github.com/couchbase/couchbase-lite-react-native).  This plugin is actively developed and maintained by the community.  It is not an official Couchbase product.  
 
 A developer using this plugin should have a basic understanding of the following technologies:
 - [React Native](https://reactnative.dev/)
@@ -31,12 +31,12 @@ Please review the React Native [Support documentation](https://github.com/reactw
     - [Node >= 20](https://formulae.brew.sh/formula/node@18)
 - React Native
     - [React Native Docs](https://reactnative.dev/)
-    - [Understanding React Native - Native Modules ](https://reactnative.dev/docs/native-modules-intro)
+    - [Understanding React Native - Native Modules ](https://reactnative.dev/docs/legacy/native-modules-intro)
 - Expo (if you choose to use Expo, not required but recommended)
     - [Expo Docs](https://docs.expo.dev/)
     - [Expo Dev Client](https://docs.expo.dev/guides/local-app-development/#local-builds-with-expo-dev-client)
     - [Expo Mono Repos](https://docs.expo.dev/guides/monorepos/)
-    - [Expo Plugin and mods](https://docs.expo.dev/config-plugins/plugins-and-mods/)
+    - [Expo Plugin and mods](https://docs.expo.dev/config-plugins/introduction/)
 - IDEs
     - [Visual Studio Code](https://code.visualstudio.com/download)
     - [IntelliJ IDEA](https://www.jetbrains.com/idea/download/)

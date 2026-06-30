@@ -362,7 +362,7 @@ Unlike collection listeners, document change listeners DO have a direct `databas
 #### Example 7. Monitor Specific Document
 
 ```typescript
-import { ListenerToken } from 'cbl-reactnative';
+import { ListenerToken } from '@couchbase/couchbase-lite-react-native';
 
 const token: ListenerToken = await collection.addDocumentChangeListener(
   'user-123',

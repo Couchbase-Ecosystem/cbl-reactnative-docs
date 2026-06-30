@@ -18,14 +18,15 @@ const config = {
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   organizationName: 'couchbase', // Usually your GitHub org/user name.
-  projectName: 'couchbase-lite-react-native', // Usually your repo name.
+  projectName: 'cbl-reactnative-docs', // Usually your repo name.
   deploymentBranch: 'gh-pages',
   trailingSlash: false,
 
   onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
 
-  // OneTrust Cookies Consent Notice for couchbase.com
+  // OneTrust cookie consent (Couchbase script; see static/js/onetrust-wrapper.js
+  // for cbl-reactnative.dev persistence workaround).
   headTags: [
     {
       tagName: 'script',
@@ -33,15 +34,17 @@ const config = {
         src: 'https://cdn.cookielaw.org/scripttemplates/otSDKStub.js',
         type: 'text/javascript',
         charset: 'UTF-8',
-        'data-domain-script': '748511ff-10bf-44bf-88b8-36382e5b5fd9',
+        'data-domain-script':
+          process.env.ONETRUST_DOMAIN_SCRIPT ||
+          '748511ff-10bf-44bf-88b8-36382e5b5fd9',
       },
     },
     {
       tagName: 'script',
       attributes: {
+        src: '/js/onetrust-wrapper.js',
         type: 'text/javascript',
       },
-      innerHTML: 'function OptanonWrapper() {}',
     },
     {
       tagName: 'script',
@@ -81,13 +84,13 @@ const config = {
           },
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl: 'https://github.com/couchbase/couchbase-lite-react-native/tree/main/cbl-reactnative-docs',
+          editUrl: 'https://github.com/couchbase/cbl-reactnative-docs/tree/main/',
         },
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl: 'https://github.com/couchbase/couchbase-lite-react-native/tree/main/cbl-reactnative-docs',
+          editUrl: 'https://github.com/couchbase/cbl-reactnative-docs/tree/main/',
         },
         theme: {
           customCss: './src/css/custom.css',
@@ -117,7 +120,7 @@ const config = {
       },
       image: 'img/couchbase-social-card.jpg',
       navbar: {
-        title: 'cbl-reactnative',
+        title: 'Couchbase Lite React Native',
         logo: {
           alt: 'Couchbase Logo',
           src: 'img/couchbase.svg',
@@ -126,11 +129,6 @@ const config = {
           {to: 'blog', label: 'Blog', position: 'left'},
           {
             type: 'docsVersionDropdown',
-            position: 'right',
-          },
-          {
-            href: 'https://github.com/couchbase/couchbase-lite-react-native',
-            label: 'GitHub',
             position: 'right',
           },
         ],
@@ -188,6 +186,10 @@ const config = {
               {
                 label: 'GitHub',
                 href: 'https://github.com/couchbase/couchbase-lite-react-native',
+              },
+              {
+                label: 'npm',
+                href: 'https://www.npmjs.com/package/@couchbase/couchbase-lite-react-native',
               },
             ],
           },

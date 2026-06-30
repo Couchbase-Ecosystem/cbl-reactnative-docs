@@ -14,13 +14,13 @@ Couchbase Lite is an embedded, document-style NoSQL database that is syncable an
 
 Couchbase Lite for React Native is a Native Module implementation of Couchbase Lite for React Native using Typescript. It has feature parity with Couchbase Lite implementations for other platforms, with a few exceptions.
 
-More information on React Native - Native Modules can be found here: [React Native Docs](https://reactnative.dev/docs/native-modules-intro)
+More information on React Native - Native Modules can be found here: [React Native Docs](https://reactnative.dev/docs/legacy/native-modules-intro)
 
 :::note
 This plugin only works with iOS and Android platforms.  Web, Windows, and MacOS support is not available.
 :::
 
-The version of this Native Module is based on supporting Couchbase Lite Enterprise for iOS and Android.  This Native Module is not compatible with Couchbase Lite Community Edition.  A [license](https://www.couchbase.com/pricing/) is required to use Couchbase Lite Enterprise edition.  
+The version of this Native Module is based on supporting Couchbase Lite Enterprise for iOS and Android.  A [license](https://www.couchbase.com/pricing/) is required to use Couchbase Lite Enterprise edition.  
 
 ## Features
 * Offline First

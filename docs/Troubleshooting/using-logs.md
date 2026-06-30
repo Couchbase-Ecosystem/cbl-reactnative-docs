@@ -65,7 +65,7 @@ Console based logging outputs logs to the system console (stdout/stderr), useful
 #### Example 1. Enable Console Logging
 
 ```typescript
-import { LogSinks, LogLevel, LogDomain } from 'cbl-reactnative';
+import { LogSinks, LogLevel, LogDomain } from '@couchbase/couchbase-lite-react-native';
 
 // Enable verbose logging for all domains
 await LogSinks.setConsole({
@@ -142,7 +142,7 @@ The wrapper avoids forwarding sensitive payloads such as document bodies, blob c
 You can use `FileSystem.getFilesInDirectory(path)` to list generated log files in the log directory:
 
 ```typescript
-import { FileSystem } from 'cbl-reactnative';
+import { FileSystem } from '@couchbase/couchbase-lite-react-native';
 
 const fileSystem = new FileSystem();
 const files = await fileSystem.getFilesInDirectory(logDirectory);
@@ -179,7 +179,7 @@ await LogSinks.setCustom(null);
 Version 1.1 adds `LogSinks.write()` for writing your own application log messages into the configured Couchbase Lite logging pipeline. These messages are delivered to enabled sinks such as file, console, and custom sinks.
 
 ```typescript
-import { LogSinks, LogLevel, LogDomain } from 'cbl-reactnative';
+import { LogSinks, LogLevel, LogDomain } from '@couchbase/couchbase-lite-react-native';
 
 await LogSinks.write(
   LogLevel.WARNING,

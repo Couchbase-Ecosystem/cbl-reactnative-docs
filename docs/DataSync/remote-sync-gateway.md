@@ -137,7 +137,7 @@ import {
   BasicAuthenticator,
   Replicator,
   ListenerToken
-} from 'cbl-reactnative';
+} from '@couchbase/couchbase-lite-react-native';
 
 // Create endpoint and authenticator
 const endpoint = new URLEndpoint('ws://localhost:4984/projects');
@@ -202,7 +202,7 @@ The `addCollection()` method is deprecated. It remains available for backward co
 The new API allows each collection to have its own replication settings:
 
 ```typescript
-import { CollectionConfiguration } from 'cbl-reactnative';
+import { CollectionConfiguration } from '@couchbase/couchbase-lite-react-native';
 
 // Configure users collection
 const usersConfig = new CollectionConfiguration(usersCollection)
@@ -726,7 +726,7 @@ The returned *ReplicationStatus* structure comprises:
 #### Example 14. Monitor replication
 
 ```typescript
-import { ListenerToken } from 'cbl-reactnative';
+import { ListenerToken } from '@couchbase/couchbase-lite-react-native';
 
 const token: ListenerToken = await replicator.addChangeListener((change) => {
     const status = change.status;
@@ -764,7 +764,7 @@ interface ReplicatorStatusChange {
 #### Example 14b. Advanced Replication Status Monitoring
 
 ```typescript
-import { ListenerToken, ReplicatorActivityLevel } from 'cbl-reactnative';
+import { ListenerToken, ReplicatorActivityLevel } from '@couchbase/couchbase-lite-react-native';
 
 const token: ListenerToken = await replicator.addChangeListener((change) => {
   const status = change.status;
@@ -851,7 +851,7 @@ For example, the code snippet in [Example 15](#example-15-register-a-document-li
 #### Example 15. Register a document listener
 
 ```typescript
-import { ListenerToken } from 'cbl-reactnative';
+import { ListenerToken } from '@couchbase/couchbase-lite-react-native';
 
 const token: ListenerToken = await replicator.addDocumentChangeListener((replication) => {
     const direction = replication.isPush ? "Push" : "Pull";
@@ -973,7 +973,7 @@ As always, when there is a problem with replication, logging is your friend. You
 #### Example 21. Set logging verbosity
 
 ```typescript
-import { LogSinks, LogLevel, LogDomain } from 'cbl-reactnative';
+import { LogSinks, LogLevel, LogDomain } from '@couchbase/couchbase-lite-react-native';
 
 // Verbose / Replicator and Network
 await LogSinks.setConsole({
